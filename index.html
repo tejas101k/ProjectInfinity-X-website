@@ -7,10 +7,28 @@
     <style>
         body { 
             margin: 0; 
-            padding: 20px; 
             font-family: Arial, sans-serif;
             background: #121212;
             color: #fff;
+        }
+        .navbar {
+            background: #1a1a1a;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: #ff6b35;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .content {
             max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
@@ -39,25 +57,35 @@
     </style>
 </head>
 <body>
-    <h1>Experience Limitless Possibilities</h1>
-    <div class="description">
-        <p>Project Infinity X - AOSP Custom ROM with refined performance</p>
-        <p>Built for enthusiasts who demand more</p>
-    </div>
+    <nav class="navbar">
+        <div class="logo">Project Infinity X</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#download">Download</a>
+        </div>
+    </nav>
     
-    <div class="features">
-        <h2>Features</h2>
-        <div class="feature">
-            <h3>Refined Performance</h3>
-            <p>Optimized SystemUI tweaks for better speed</p>
+    <div class="content">
+        <h1>Experience Limitless Possibilities</h1>
+        <div class="description">
+            <p>Project Infinity X - AOSP Custom ROM with refined performance</p>
+            <p>Built for enthusiasts who demand more</p>
         </div>
-        <div class="feature">
-            <h3>Enhanced Security</h3>
-            <p>Banking apps work perfectly with built-in spoofing</p>
-        </div>
-        <div class="feature">
-            <h3>Infinite Customization</h3>
-            <p>Complete control over your UI experience</p>
+        
+        <div class="features" id="features">
+            <h2>Features</h2>
+            <div class="feature">
+                <h3>Refined Performance</h3>
+                <p>Optimized SystemUI tweaks for better speed</p>
+            </div>
+            <div class="feature">
+                <h3>Enhanced Security</h3>
+                <p>Banking apps work perfectly with built-in spoofing</p>
+            </div>
+            <div class="feature">
+                <h3>Infinite Customization</h3>
+                <p>Complete control over your UI experience</p>
+            </div>
         </div>
     </div>
 </body>
