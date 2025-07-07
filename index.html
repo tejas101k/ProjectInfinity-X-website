@@ -10,10 +10,6 @@
             font-family: Arial, sans-serif;
             background: #121212;
             color: #fff;
-        @media (max-width: 768px) {
-            .navbar { flex-direction: column; }
-            .nav-links { margin-top: 10px; }
-        }
         }
         .navbar {
             background: #1a1a1a;
@@ -28,17 +24,13 @@
             font-size: 1.2em;
         }
         .nav-links a {
-    transition: color 0.3s;
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s;
         }
         .nav-links a:hover {
             color: #ff6b35;
-            color: #fff;
-        @media (max-width: 768px) {
-            .navbar { flex-direction: column; }
-            .nav-links { margin-top: 10px; }
-        }
-            text-decoration: none;
-            margin: 0 15px;
         }
         .content {
             max-width: 800px;
@@ -81,23 +73,19 @@
         .download-btn:hover {
             background: #e55a2b;
         }
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; }
+            .nav-links { margin-top: 10px; }
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">Project Infinity X</div>
-    
-    <footer style="text-align: center; padding: 40px 0; color: #666;">
-        <p>Project Infinity X © 2025</p>
-    </footer>
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#download">Download</a>
         </div>
-    
-    <footer style="text-align: center; padding: 40px 0; color: #666;">
-        <p>Project Infinity X © 2025</p>
-    </footer>
     </nav>
     
     <div class="content">
@@ -106,10 +94,6 @@
             <p>Project Infinity X - AOSP Custom ROM with refined performance</p>
             <p>Built for enthusiasts who demand more</p>
         </div>
-    
-    <footer style="text-align: center; padding: 40px 0; color: #666;">
-        <p>Project Infinity X © 2025</p>
-    </footer>
         
         <div class="features" id="features">
             <h2>Features</h2>
@@ -117,48 +101,27 @@
                 <h3>Refined Performance</h3>
                 <p>Optimized SystemUI tweaks for better speed</p>
             </div>
-    
-    <footer style="text-align: center; padding: 40px 0; color: #666;">
-        <p>Project Infinity X © 2025</p>
-    </footer>
             <div class="feature">
                 <h3>Enhanced Security</h3>
                 <p>Banking apps work perfectly with built-in spoofing</p>
             </div>
-    
-    <footer style="text-align: center; padding: 40px 0; color: #666;">
-        <p>Project Infinity X © 2025</p>
-    </footer>
             <div class="feature">
                 <h3>Infinite Customization</h3>
                 <p>Complete control over your UI experience</p>
             </div>
-    
-    <footer style="text-align: center; padding: 40px 0; color: #666;">
-        <p>Project Infinity X © 2025</p>
-    </footer>
         </div>
-    
-    <footer style="text-align: center; padding: 40px 0; color: #666;">
-        <p>Project Infinity X © 2025</p>
-    </footer>
         
         <div class="download" id="download">
             <h2>Download Now</h2>
             <p>Get your hands on Project Infinity X</p>
             <a href="#" class="download-btn">Download ROM</a>
         </div>
-    
-    <footer style="text-align: center; padding: 40px 0; color: #666;">
-        <p>Project Infinity X © 2025</p>
-    </footer>
     </div>
     
     <footer style="text-align: center; padding: 40px 0; color: #666;">
         <p>Project Infinity X © 2025</p>
     </footer>
-</body>
-</html>
+
     <script>
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -170,3 +133,5 @@
             });
         });
     </script>
+</body>
+</html>
