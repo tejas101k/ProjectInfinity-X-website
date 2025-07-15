@@ -66,14 +66,31 @@
         }
         .feature {
             margin: 15px 0;
-            padding: 15px;
+            padding: 20px;
             border-left: 3px solid #ff6b35;
             background: rgba(255, 107, 53, 0.05);
             border-radius: 8px;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        .feature:hover::before {
+            left: 100%;
         }
         .feature:hover {
             background: rgba(255, 107, 53, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
         }
         .download, .community {
             text-align: center;
