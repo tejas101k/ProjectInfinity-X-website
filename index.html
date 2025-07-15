@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Infinity X</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>∞</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>∞</text></svg>">
+    <meta name="description" content="Project Infinity X - AOSP Custom ROM with refined performance and endless customization">
+    <meta name="keywords" content="Project Infinity X, AOSP, Custom ROM, Android">
     <style>
         body { 
             margin: 0; 
@@ -62,12 +64,6 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
-        .features {
-            margin-top: 40px;
-        }
-        .download, .community {
-            margin-top: 40px;
-        }
         .feature {
             margin: 15px 0;
             padding: 15px;
@@ -79,7 +75,7 @@
         .feature:hover {
             background: rgba(255, 107, 53, 0.1);
         }
-        .download {
+        .download, .community {
             text-align: center;
         }
         .download-btn {
@@ -98,19 +94,18 @@
         @media (max-width: 768px) {
             .navbar { flex-direction: column; }
             .nav-links { margin-top: 10px; }
+            .features-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">Project Infinity X        </div>
-    </div>
+        <div class="logo">Project Infinity X</div>
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#download">Download</a>
             <a href="#community">Community</a>
-                </div>
-    </div>
+        </div>
     </nav>
     
     <div class="content">
@@ -118,41 +113,35 @@
         <div class="description">
             <p>Project Infinity X - AOSP Custom ROM with refined performance</p>
             <p>Built for enthusiasts who demand more</p>
-                </div>
-    </div>
+        </div>
         
         <div class="features" id="features">
-        <div class="features-grid">
             <h2>Features</h2>
-            <div class="feature">
-                <h3>Refined Performance</h3>
-                <p>Optimized SystemUI tweaks for better speed and battery life</p>
-                    </div>
-    </div>
-            <div class="feature">
-                <h3>Enhanced Security</h3>
-                <p>Banking apps work perfectly with built-in spoofing</p>
-                    </div>
-    </div>
-            <div class="feature">
-                <h3>Infinite Customization</h3>
-                <p>Complete control over your UI experience with theme engine</p>
-                    </div>
-    </div>
-            <div class="feature">
-                <h3>Smart Features</h3>
-                <p>Advanced gestures and intelligent system optimizations</p>
-                    </div>
-    </div>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>Refined Performance</h3>
+                    <p>Optimized SystemUI tweaks for better speed and battery life</p>
                 </div>
-    </div>
+                <div class="feature">
+                    <h3>Enhanced Security</h3>
+                    <p>Banking apps work perfectly with built-in spoofing</p>
+                </div>
+                <div class="feature">
+                    <h3>Infinite Customization</h3>
+                    <p>Complete control over your UI experience with theme engine</p>
+                </div>
+                <div class="feature">
+                    <h3>Smart Features</h3>
+                    <p>Advanced gestures and intelligent system optimizations</p>
+                </div>
+            </div>
+        </div>
         
         <div class="download" id="download">
             <h2>Download Now</h2>
             <p>Get your hands on Project Infinity X</p>
             <a href="#" class="download-btn">Download ROM</a>
-                </div>
-    </div>
+        </div>
         
         <div class="community" id="community">
             <h2>Join Our Community</h2>
@@ -161,11 +150,8 @@
                 <a href="#" style="color: #ff6b35; text-decoration: none; margin: 0 15px;">Telegram</a>
                 <a href="#" style="color: #ff6b35; text-decoration: none; margin: 0 15px;">Discord</a>
                 <a href="#" style="color: #ff6b35; text-decoration: none; margin: 0 15px;">GitHub</a>
-                    </div>
-    </div>
-                </div>
-    </div>
             </div>
+        </div>
     </div>
     
     <footer style="text-align: center; padding: 40px 0; color: #888; border-top: 1px solid #333;">
