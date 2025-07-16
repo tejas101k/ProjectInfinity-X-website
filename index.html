@@ -35,8 +35,20 @@
         }
         .logo {
             color: #ff6b35;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo::before {
+            content: '∞';
             font-size: 1.2em;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
         .nav-links a {
             color: #fff;
