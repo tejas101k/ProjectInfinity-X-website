@@ -60,9 +60,16 @@
             color: #ff6b35;
         }
         .content {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
+        }
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            background: radial-gradient(ellipse at center, #1a1a1a 0%, #121212 70%);
+            position: relative;
+            overflow: hidden;
         }
         h1 { 
             color: #ff6b35; 
@@ -115,10 +122,51 @@
             margin-bottom: 15px;
             display: block;
         }
-        .feature:hover {
-            background: rgba(255, 107, 53, 0.1);
+        .gradient-text {
+            background: linear-gradient(45deg, #ff6b35, #4285f4, #ea4335);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease-in-out infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
         }
         .download, .community {
             text-align: center;
@@ -154,11 +202,17 @@
     </nav>
     
     <div class="content">
-        <h1>Experience Limitless Possibilities</h1>
-        <div class="description">
-            <p>Project Infinity X - AOSP Custom ROM with refined performance</p>
-            <p>Built for enthusiasts who demand more</p>
-        </div>
+        <section class="hero">
+            <h1>Experience <span class="gradient-text">Limitless Possibilities</span></h1>
+            <div class="description">
+                <p>Project Infinity X - AOSP Custom ROM with refined performance</p>
+                <p>Built for enthusiasts who demand more</p>
+            </div>
+            <div class="hero-buttons">
+                <a href="#download" class="btn btn-primary">Download Now</a>
+                <a href="#features" class="btn btn-secondary">Explore Features</a>
+            </div>
+        </section>
         
         <div class="features" id="features">
             <h2>Features</h2>
