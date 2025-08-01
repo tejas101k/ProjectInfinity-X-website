@@ -1,0 +1,243 @@
+/* Project Infinity X - Main Styles */
+
+body { 
+    margin: 0; 
+    font-family: 'Roboto', 'Arial', sans-serif;
+    background: #121212;
+    color: #fff;
+    line-height: 1.6;
+    padding-top: 80px;
+}
+
+.navbar {
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    color: #ff6b35;
+    font-weight: 700;
+    font-size: 1.3em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo::before {
+    content: '∞';
+    font-size: 1.2em;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ff6b35;
+}
+
+.content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 0;
+    background: radial-gradient(ellipse at center, #1a1a1a 0%, #121212 70%);
+    position: relative;
+    overflow: hidden;
+}
+
+h1 { 
+    color: #ff6b35; 
+    text-align: center;
+    font-size: 2.8em;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #ff6b35;
+}
+
+.description {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.features {
+    margin-top: 60px;
+    padding: 80px 0;
+    background: #1a1a1a;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.feature {
+    margin: 15px 0;
+    padding: 20px;
+    border-left: 3px solid #ff6b35;
+    background: rgba(255, 107, 53, 0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.feature:hover::before {
+    left: 100%;
+}
+
+.feature:hover {
+    background: rgba(255, 107, 53, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
+}
+
+.feature-icon {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, #ff6b35, #4285f4, #ea4335);
+    background-size: 400% 400%;
+    animation: gradientShift 3s ease-in-out infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ff6b35, #ff8c42);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.download, .community {
+    margin-top: 60px;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.download {
+    background: #1a1a1a;
+}
+
+.community {
+    background: #0d0d0d;
+}
+
+.download-btn {
+    background: #ff6b35;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.download-btn:hover {
+    background: #e55a2b;
+}
+
+@media (max-width: 768px) {
+    .navbar { flex-direction: column; }
+    .nav-links { margin-top: 10px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .hero { padding: 60px 0; }
+    .hero h1 { font-size: 2.2em; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+    .btn { width: 100%; max-width: 280px; }
+}
