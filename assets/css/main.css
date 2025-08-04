@@ -55,6 +55,11 @@ body {
     color: #ff6b35;
 }
 
+.nav-links a.active {
+    color: #ff6b35;
+    font-weight: 700;
+}
+
 .content {
     max-width: 1200px;
     margin: 0 auto;
