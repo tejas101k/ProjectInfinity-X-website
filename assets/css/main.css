@@ -219,6 +219,66 @@ h2 {
     background: #1a1a1a;
 }
 
+.screenshot-section {
+    margin: 60px 0;
+    text-align: center;
+}
+
+.screenshot-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.screenshot-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.screenshot-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.screenshot-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.screenshot-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.screenshot-item:hover img {
+    transform: scale(1.1);
+}
+
+.screenshot-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 20px 15px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
 .community {
     background: #0d0d0d;
 }
@@ -239,11 +299,67 @@ h2 {
 }
 
 @media (max-width: 768px) {
-    .navbar { flex-direction: column; }
-    .nav-links { margin-top: 10px; }
-    .features-grid { grid-template-columns: 1fr; }
-    .hero { padding: 60px 0; }
-    .hero h1 { font-size: 2.2em; }
-    .hero-buttons { flex-direction: column; align-items: center; }
-    .btn { width: 100%; max-width: 280px; }
+    .navbar { 
+        flex-direction: column; 
+        padding: 15px 20px;
+    }
+    
+    .nav-links { 
+        margin-top: 15px; 
+        gap: 20px;
+    }
+    
+    .features-grid { 
+        grid-template-columns: 1fr; 
+        gap: 25px;
+    }
+    
+    .screenshot-gallery {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 20px;
+    }
+    
+    .hero { 
+        padding: 80px 0 60px; 
+        text-align: center;
+    }
+    
+    .hero h1 { 
+        font-size: 2.8em; 
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+    
+    .hero p {
+        font-size: 1.1em;
+        margin-bottom: 30px;
+        padding: 0 20px;
+    }
+    
+    .hero-buttons { 
+        flex-direction: column; 
+        align-items: center; 
+        gap: 15px;
+    }
+    
+    .btn { 
+        width: 100%; 
+        max-width: 300px; 
+        padding: 15px 25px;
+        font-size: 1.1em;
+    }
+    
+    .screenshot-section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+    }
+    
+    .feature {
+        padding: 25px 20px;
+    }
+    
+    .feature-icon {
+        font-size: 2.2em;
+    }
 }
