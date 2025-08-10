@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Downloads - Project Infinity X</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/web-app-manifest-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon/web-app-manifest-512x512.png">
+    <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/downloads.css">
+</head>
+<body>
+    <!-- Android Status Bar -->
+    <div class="android-bar"></div>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="https://projectinfinity-x.com" class="logo" style="text-decoration: none;">
+                    <div class="logo-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <div class="logo-text">Project Infinity X</div>
+                </a>
+                <a href="../" class="back-home">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div id="devicesListing" class="devices-listing">
+            <h1 class="page-title">Device Downloads</h1>
+            <div class="search-container">
+                <input type="text" class="search-box" id="searchInput" placeholder="Search by device codename or model...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <!-- Brand Categories -->
+            <div class="brand-categories" id="brandCategories">
+                <button class="brand-btn active" data-brand="all">All Brands</button>
+                <!-- Brand buttons will be added dynamically -->
+            </div>
+            <div class="devices-grid" id="devicesGrid">
+                <div class="loader" id="loadingMessage">
+                    <div class="spinner"></div>
+                    <p>Loading devices...</p>
+                </div>
+                <div class="no-results hidden" id="errorMessage">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Failed to load devices. Please try again later.</p>
+                    <p id="errorDetails"></p>
+                </div>
+            </div>
+        </div>
+        <!-- Device Details Screen -->
+        <div id="deviceDetails" class="device-details-screen">
+            <div class="device-details-container">
+                <div class="device-details-header">
+                    <a href="#" class="back-to-list" id="backToList">
+                        <i class="fas fa-arrow-left"></i> Back to Devices
+                    </a>
+                    <h2 class="device-details-title" id="deviceDetailsTitle">Device Name</h2>
+                    <div></div>
+                </div>
+                <div class="device-details-body">
+                    <div class="device-details-image-container">
+                        <div class="device-details-image">
+                            <img id="deviceDetailsImage" src="" alt="Device Image">
+                        </div>
+                    </div>
+                    <div class="device-info-box">
+                        <h3 class="info-title"><i class="fas fa-info-circle"></i> Device Information</h3>
+                        <div class="info-content">
+                            <p><strong>Model:</strong> <span id="deviceDetailsModel"></span></p>
+                            <p><strong>Codename:</strong> <span id="deviceDetailsCodename"></span></p>
+                            <div>
+                                <p><strong>Maintainer:</strong> <span id="deviceDetailsMaintainer"></span></p>
+                                <div class="device-links" id="deviceDetailsLinks"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="downloads-container">
+                        <h3 class="info-title"><i class="fas fa-download"></i> Downloads</h3>
+                        <div class="android-version-buttons" id="androidVersionButtons">
+                            <!-- Android version buttons will be added here -->
+                        </div>
+                        <div class="downloads" id="deviceDownloadsContainer">
+                            <!-- Downloads will be populated here -->
+                        </div>
+                    </div>
+                    <div class="guides-container">
+                        <h3 class="info-title"><i class="fas fa-file-alt"></i> Guides & Information</h3>
+                        <div class="tab-container">
+                            <div class="tabs">
+                                <div class="tab active" data-tab="changelog">Changelog</div>
+                                <div class="tab" data-tab="flashguide">Flash Guide</div>
+                            </div>
+                            <div class="tab-content active" id="deviceChangelogContent"></div>
+                            <div class="tab-content" id="deviceFlashguideContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Project Infinity X</h3>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 20px;">Let's just DIVE INTO INFINITY!</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://projectinfinity-x.com/legal"><i class="fas fa-gavel"></i> Legal</a></li>
+                        <li><a href="https://projectinfinity-x.com/downloads"><i class="fas fa-download"></i> Downloads</a></li>
+                        <li><a href="https://t.me/infinityxgroup"><i class="fas fa-globe"></i> Get Support</a></li>
+                        <li><a href="https://projectinfinity-x.com/apply-for-maintainership"><i class="fas fa-user-plus"></i> Apply for maintainership</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Community</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://xdaforums.com/tags/infinityx/"><i class="fab fa-forumbee"></i> Forums</a></li>
+                        <li><a href="https://t.me/projectinfinityx"><i class="fab fa-telegram"></i> Telegram</a></li>
+                        <li><a href="https://github.com/projectinfinity-x/"><i class="fab fa-github"></i> GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Project Infinity X - All rights reserved</p>
+                <p>Designed and Developed solely with ❤️ by <a href="https://github.com/tejas101k">tejas101k</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/downloads.js"></script>
+</body>
+</html>
