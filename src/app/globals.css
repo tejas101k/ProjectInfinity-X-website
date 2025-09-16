@@ -1,0 +1,326 @@
+/* src/app/globals.css */
+
+/* 1. Import Tailwind */
+@import "tailwindcss";
+
+/* 2. Define your simple black and white theme */
+:root {
+  /* Background and Foreground */
+  --background: #000000;
+  /* Pure Black */
+  --foreground: #FFFFFF;
+  /* Pure White */
+
+  /* Semantic aliases for easier use and consistency */
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+}
+
+/* 3. Map variables to Tailwind's default names */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* Map semantic names for direct use in classes like bg-black, text-white */
+  --color-black: var(--color-black);
+  --color-white: var(--color-white);
+}
+
+/* 4. Apply base styles */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Roboto', sans-serif;
+  /* Ensure Roboto is loaded via layout.tsx or CDN */
+  overflow-x: hidden;
+  /* Prevent horizontal scroll from particles */
+  position: relative;
+  /* For particle positioning */
+}
+
+/* 5. Particle Styles (Adapted from original CSS) */
+.particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+  /* Behind content */
+}
+
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
+  animation: sparkleMove linear infinite;
+  will-change: transform, opacity;
+}
+
+.droplet {
+  position: absolute;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0.8;
+  animation: dropletFall linear infinite;
+  transform: scale(0);
+  box-shadow: 0 0 10px rgba(66, 133, 244, 0.5);
+  will-change: transform, opacity;
+}
+
+@keyframes sparkleMove {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: var(--sparkle-x, 0) var(--sparkle-y, 0) scale(1);
+    /* Use CSS variables for dynamic movement */
+    opacity: 0;
+  }
+}
+
+@keyframes dropletFall {
+  0% {
+    transform: translateY(-50px) scale(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(100vh) scale(1);
+    opacity: 0;
+  }
+}
+
+/* 6. Screenshots Section Styles */
+.screenshots {
+  padding: 4rem 1rem;
+  /* py-16 px-4 equivalent */
+  /* background-color: #111111; */
+  /* Slightly lighter black */
+  position: relative;
+  overflow: hidden;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  /* mb-12 equivalent */
+}
+
+.section-title h2 {
+  font-size: 2.25rem;
+  /* text-4xl equivalent */
+  font-weight: 700;
+  /* font-bold equivalent */
+  margin-bottom: 1rem;
+  /* mb-4 equivalent */
+  color: white;
+  /* text-white equivalent */
+  /* Add animation class if needed */
+}
+
+.section-title p {
+  font-size: 1.25rem;
+  /* text-xl equivalent */
+  color: #cccccc;
+  /* text-gray-400 equivalent */
+  max-width: 42rem;
+  /* max-w-2xl equivalent */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.screenshots-slider {
+  max-width: 1200px;
+  /* max-w-6xl equivalent */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+  /* px-4 equivalent */
+  position: relative;
+}
+
+.swipe-hint {
+  text-align: center;
+  margin-top: 1.5rem;
+  /* mt-6 equivalent */
+  color: #999999;
+  /* text-gray-500 equivalent */
+  font-size: 1rem;
+  /* text-base equivalent */
+}
+
+.swipe-hint i {
+  margin-right: 0.5rem;
+  /* mr-2 equivalent */
+}
+
+/* Swiper Styles - Import Swiper styles in your component or globally */
+@import 'swiper/css';
+@import 'swiper/css/effect-coverflow';
+@import 'swiper/css/pagination';
+
+/* Basic Swiper Overrides for Black/White Theme */
+.swiper {
+  width: 100%;
+  padding: 2rem 0;
+  /* py-8 equivalent */
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  /* Adjust width as needed */
+  height: 500px;
+  /* Adjust height as needed */
+  border-radius: 1rem;
+  /* rounded-2xl equivalent */
+  overflow: hidden;
+  border: 1px solid #333333;
+  /* border-gray-800 equivalent */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  /* shadow-xl equivalent */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.swiper-pagination {
+  position: relative;
+  margin-top: 2rem;
+  /* mt-8 equivalent */
+  text-align: center;
+}
+
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: #666666;
+  /* bg-gray-600 equivalent */
+  opacity: 1;
+  border-radius: 50%;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: white;
+  /* bg-white equivalent */
+}
+
+/* src/app/globals.css */
+/* ... (previous CSS remains the same) */
+
+/* Custom Swiper Styles - Add this at the end of your CSS file */
+.mySwiper {
+  width: 100%;
+  /* Remove padding from the parent container */
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  /* Adjust width as needed */
+  height: 500px;
+  /* Adjust height as needed */
+  border-radius: 1rem;
+  /* rounded-2xl equivalent */
+  overflow: hidden;
+  border: 1px solid #333333;
+  /* border-gray-800 equivalent */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  /* shadow-xl equivalent */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* This is the key: Add a transform to create the overlap effect */
+  transform: scale(1);
+  transition: all 0.3s ease;
+}
+
+/* On hover, increase the size slightly to make it appear larger */
+.swiper-slide:hover {
+  transform: scale(1.05);
+  z-index: 10;
+  /* Bring it forward */
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5), 0 10px 20px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* For mobile, reduce the size and scale */
+@media (max-width: 768px) {
+  .swiper-slide {
+    width: 200px;
+    height: 350px;
+  }
+
+  .swiper-slide:hover {
+    transform: scale(1.03);
+  }
+}
+
+/* Make the active slide even more prominent */
+.swiper-slide-active {
+  transform: scale(1.1);
+  z-index: 15;
+  box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.5), 0 15px 25px -10px rgba(0, 0, 0, 0.3);
+}
+
+/* Style the navigation dots */
+.swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: #666666;
+  /* bg-gray-600 equivalent */
+  opacity: 1;
+  border-radius: 50%;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.swiperPagination-bullet-active {
+  background-color: #ff006e;
+  /* Pink color matching the title */
+}
+
+/* Hide the default arrow indicators if they appear */
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}
+
+/* Ensure the swiper wrapper takes full height */
+.screenshots-slider {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
