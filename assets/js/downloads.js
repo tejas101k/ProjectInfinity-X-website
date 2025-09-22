@@ -38,7 +38,7 @@ const deviceDataCache = {};
 const imageCache = {};
 let currentAndroidVersion = '16';
 
-/* ...UTILITIES AS BEFORE... */
+/* ...UTILITIES... */
 
 function formatFileSize(bytes) { if (bytes === 0) return '0 Bytes'; const k = 1024; const sizes = ['Bytes','KB','MB','GB']; const i = Math.floor(Math.log(bytes)/Math.log(k)); return parseFloat((bytes/Math.pow(k,i)).toFixed(2)) + ' ' + sizes[i]; }
 function formatTimestamp(timestamp) { const date = new Date(timestamp * 1000); return date.toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}); }
@@ -46,7 +46,7 @@ function getPrimaryCodename(codename) { return codename.split('/')[0].trim(); }
 function getParameterByName(name) { const urlParams = new URLSearchParams(window.location.search); return urlParams.get(name); }
 function checkUrlForDevice() { const codename = getParameterByName('device'); if (codename) { loadDeviceDetails(codename); return true; } return false; }
 async function fetchContent(url, type = 'json') { if (deviceDataCache[url]) return deviceDataCache[url]; try { const response = await fetch(url); if (!response.ok) throw new Error("HTTP error! Status: "+response.status); let data; if (type === 'json') data = await response.json(); else data = await response.text(); deviceDataCache[url] = data; return data; } catch(e){return null;} }
-function getDeviceImageUrl(primaryCodename) { if (imageCache[primaryCodename]) return imageCache[primaryCodename]; const sources = [`https://raw.githubusercontent.com/ProjectInfinity-X/official_devices/16/deviceimages/${primaryCodename}.webp`,`https://wiki.lineageos.org/images/devices/${primaryCodename}.png`]; return sources[0]; }
+function getDeviceImageUrl(primaryCodename) { if (imageCache[primaryCodename]) return imageCache[primaryCodename]; return `https://raw.githubusercontent.com/ProjectInfinity-X/official_devices/16/deviceimages/${primaryCodename}.webp`; }
 function getBrandFromModel(modelName) { const lowerModel = modelName.toLowerCase(); for (const [brand, keywords] of Object.entries(BRAND_CATEGORIES)) { for (const keyword of keywords) { if (lowerModel.includes(keyword)) return brand; } } return 'Other'; }
 function createBrandButtons(brands) { const allBrandsBtn = document.querySelector('.brand-btn[data-brand="all"]'); brandCategories.innerHTML = ''; if(allBrandsBtn)brandCategories.appendChild(allBrandsBtn); brands.forEach(brand => { if (brand === 'All') return; const button = document.createElement('button'); button.className = 'brand-btn'; button.dataset.brand = brand; button.textContent = brand; brandCategories.appendChild(button); }); }
 
@@ -148,20 +148,6 @@ function displayDevices(devices) {
                 <div class="device-maintainer"><i class="fas fa-user-cog"></i> ${device.maintainer}</div>
             </div>
         `;
-        const img = deviceCard.querySelector('img');
-        img.addEventListener('error', function() {
-            const fallbackUrl = `https://wiki.lineageos.org/images/devices/${device.primaryCodename}.png`;
-            img.src = fallbackUrl;
-            img.addEventListener('error', function() {
-                const container = this.parentNode;
-                container.innerHTML = `
-                    <div style="text-align:center; color:#888; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center;">
-                        <i class="fas fa-mobile-alt" style="font-size:80px;"></i>
-                        <p>Image not available</p>
-                    </div>
-                `;
-            });
-        });
         devicesGrid.appendChild(deviceCard);
     });
 }
@@ -227,18 +213,6 @@ async function loadDeviceDetails(codename) {
         const flashguideDir = baseUrl + 'flashguide/';
 
         deviceDetailsImage.src = getDeviceImageUrl(primaryCodename);
-        deviceDetailsImage.addEventListener('error', function() {
-            this.src = `https://wiki.lineageos.org/images/devices/${primaryCodename}.png`;
-            this.addEventListener('error', function() {
-                const container = this.parentNode;
-                container.innerHTML = `
-                    <div style="text-align:center; color:#888; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center;">
-                        <i class="fas fa-mobile-alt" style="font-size:80px;"></i>
-                        <p>Image not available</p>
-                    </div>
-                `;
-            });
-        });
 
         const deviceInfo = await fetchContent(`${devicesDir}${codename}.json`, 'json');
         if (!deviceInfo) throw new Error("Device information not found");
