@@ -837,6 +837,25 @@
                 flex-direction: column;
                 align-items: center;
             }
+            
+            /* Mobile placement for device links */
+            .device-links {
+                gap: 8px;
+                margin-top: 10px;
+            }
+            
+            .device-link {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+                flex: 1;
+                min-width: 0;
+                justify-content: center;
+                white-space: nowrap;
+            }
+            
+            .device-link i {
+                font-size: 0.8rem;
+            }
         }
         
         /* No Results Styling */
