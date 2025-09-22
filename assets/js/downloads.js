@@ -338,6 +338,11 @@ function showDeviceList() {
     newUrl.searchParams.delete('device');
     window.history.replaceState({}, '', newUrl);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // If devices haven't been loaded yet, ensure they get loaded
+    if (!window.allDevices) {
+        loadDevices();
+    }
 }
 function setupTabs() {
     document.querySelectorAll('.tab').forEach(tab => {
@@ -390,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
             displayDevices(filteredDevices);
         }, 300);
     });
-    if (!checkUrlForDevice()) {
-        loadDevices();
-    }
+    loadDevices().then(() => {
+        checkUrlForDevice();
+    });
 });
