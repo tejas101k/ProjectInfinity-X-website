@@ -452,20 +452,4 @@
         .copyright a:hover {
             color: var(--primary);
         }
-    
-</head>
-<body>
-    <!-- Android Status Bar -->
-    <div class="android-bar"></div>
-    
-    <!-- Mobile Navigation -->
-    <div class="mobile-nav-container">
-        <div class="container">
-            <div class="mobile-top-bar">
-                <a href="https://projectinfinity-x.com" style="text-decoration: none;">
-                    <div class="mobile-logo">
-                        <i class="fas fa-infinity"></i>
-                    </div>
-                </a>
-                <div class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <i class="fas fa-bars"></i>
+

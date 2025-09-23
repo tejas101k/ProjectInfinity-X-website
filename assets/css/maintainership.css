@@ -645,7 +645,7 @@ footer::before {
 .hero {
 margin: 0 10px 10px 10px; /* Top margin now zero */
 border-radius: 30px;
-padding: 0px 0 10px; /* tighen top padding */
+padding: 0px 0 10px; /* tighten top padding */
 min-height: 70vh;
 }
     

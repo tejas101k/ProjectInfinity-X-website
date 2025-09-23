@@ -62,31 +62,6 @@ function createParticles(type, count, containerId) {
     }
 }
 
-function wireHeaderInteractions() {
-    const toggle = document.getElementById('mobileMenuToggle');
-    const links = document.getElementById('mobileNavLinks');
-    if (!toggle || !links) return;
-
-    toggle.addEventListener('click', function (e) {
-        e.stopPropagation();
-        links.classList.toggle('active');
-    });
-
-    document.addEventListener('click', function (event) {
-        if (links.classList.contains('active') &&
-            !links.contains(event.target) &&
-            !toggle.contains(event.target)) {
-            links.classList.remove('active');
-        }
-    });
-}
-
-if (document.getElementById('mobileMenuToggle')) {
-    wireHeaderInteractions();
-} else {
-    document.addEventListener('header:loaded', wireHeaderInteractions, { once: true });
-}
-
 // Helper function to shade colors
 function shadeColor(color, percent) {
     const num = parseInt(color.slice(1), 16);
