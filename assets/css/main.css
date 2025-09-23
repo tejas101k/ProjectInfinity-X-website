@@ -516,6 +516,8 @@ header {
     object-fit: cover;
     display: block;
     border-radius: 25px;
+    border: 4px solid #87CEEB;
+    box-sizing: border-box;
 }
 
 .swiper-slide:not(.swiper-slide-active) {
