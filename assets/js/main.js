@@ -226,9 +226,9 @@ window.addEventListener('load', () => {
 
     // Preload critical resources
     const preloadImages = () => {
-        const images = [];
         for (let i = 1; i <= 3; i++) {
-            images.push(new Image().src = `assets/images/ss-${i}.webp`);
+            const img = new Image();
+            img.src = `assets/images/ss-${i}.webp`;
         }
     };
 
@@ -236,11 +236,7 @@ window.addEventListener('load', () => {
 });
 
 // Optimize for reduced motion preference
-const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-if (mediaQuery.matches) {
-    document.querySelectorAll('*').forEach(el => {
-        if (el.style.animation) {
-            el.style.animation = 'none';
-        }
-    });
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.style.setProperty('--animation-duration', '0.01ms');
+    document.documentElement.style.setProperty('--transition-duration', '0.01ms');
 }
