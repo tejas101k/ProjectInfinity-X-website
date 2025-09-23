@@ -663,8 +663,9 @@ min-height: 70vh;
     }
     
     .maintainer-card {
-        padding: 25px;
-        margin: 20px;
+        padding: 24px;
+        margin: 10px 10px 20px 10px;
+        border-radius: 24px;
     }
     
     .maintainer-card h2 {
@@ -690,9 +691,13 @@ min-height: 70vh;
     }
     
     .btn {
-        padding: 12px 25px;
+        padding: 12px 22px;
         font-size: 0.95rem;
     }
+
+    /* Denser list spacing inside card on small devices */
+    .requirements h3 { margin: 18px 0 10px; }
+    .requirements li { margin-bottom: 10px; }
 }
 
 /* PERFORMANCE OPTIMIZATIONS */

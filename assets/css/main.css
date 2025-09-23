@@ -1046,6 +1046,47 @@ min-height: 70vh;
         grid-template-columns: 1fr;
         gap: 20px;
     }
+
+    /* Feature section/card layout denser and more symmetric on mobile */
+    .features {
+        margin: 0 10px 10px 10px;
+        border-radius: 30px;
+        padding: 40px 0;
+    }
+
+    .section-title {
+        margin-bottom: 30px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .feature-card {
+        padding: 22px;
+        border-radius: 18px;
+    }
+    .feature-card h3 {
+        font-size: 1.25rem;
+    }
+    .feature-card p {
+        font-size: 0.98rem;
+    }
+    .download {
+        margin: 0 10px 10px 10px;
+        border-radius: 30px;
+        padding: 40px 0;
+    }
+    .feedback-card {
+        padding: 18px;
+        border-radius: 16px;
+    }
+    .screenshots {
+        margin: 0 10px 10px 10px;
+        border-radius: 30px;
+        padding: 40px 0;
+    }
 }
 
 @media (max-width: 600px) {
@@ -1086,9 +1127,8 @@ min-height: 70vh;
         height: 530px;
     }
 
-    .features-grid {
-        grid-template-columns: 1fr;
-    }
+    .features-grid { grid-template-columns: 1fr; gap: 14px; }
+    .feature-card { padding: 20px; }
 
     .mobile-project-name {
         font-size: 1.5rem;
@@ -1097,6 +1137,8 @@ min-height: 70vh;
     .hero {
         padding: 15px 0 60px;
     }
+    .download-content { gap: 16px; }
+    .feedback-cards { gap: 14px; }
 }
 
 /* Intersection Observer Animation */
