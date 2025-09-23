@@ -1,17 +1,3 @@
-// Performance optimization: Debounce scroll events
-let lastScrollY = window.scrollY;
-let ticking = false;
-
-window.addEventListener('scroll', () => {
-    lastScrollY = window.scrollY;
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            ticking = false;
-        });
-        ticking = true;
-    }
-});
-
 // Detect mobile device
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
