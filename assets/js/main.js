@@ -138,7 +138,7 @@ setTimeout(() => {
 }, 300);
 
 // Create background elements with optimized counts
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (!reducedMotion) {
@@ -149,22 +149,37 @@ window.addEventListener('load', () => {
         createParticles('droplet', dropletCount, 'droplets');
     }
 
-    // Load screenshots in WebP format
+    // Build screenshot slides early and hint decoding priorities
     const swiperWrapper = document.querySelector('.swiper-wrapper');
     const screenshotCount = 10;
-
     for (let i = 1; i <= screenshotCount; i++) {
         const slide = document.createElement('div');
         slide.className = 'swiper-slide';
+        const eager = i <= 3 ? 'eager' : 'lazy';
+        const fetchPriority = i <= 3 ? 'high' : 'auto';
         slide.innerHTML = `
             <div class="swiper-slide-content">
-                <img src="assets/images/ss-${i}.webp" alt="Screenshot ${i}" loading="lazy">
+                <img src="assets/images/ss-${i}.webp" alt="Screenshot ${i}" loading="${eager}" decoding="async" fetchpriority="${fetchPriority}">
             </div>
         `;
         swiperWrapper.appendChild(slide);
     }
 
     // Initialize Swiper carousel with optimized settings
+    const swiperEl = document.querySelector('.swiper');
+    if (swiperEl) {
+        // Pause background effects during touch for smoother swipes
+        swiperEl.addEventListener('touchstart', () => {
+            document.body.classList.add('swiper-touching');
+        }, { passive: true });
+        swiperEl.addEventListener('touchend', () => {
+            document.body.classList.remove('swiper-touching');
+        }, { passive: true });
+        swiperEl.addEventListener('touchcancel', () => {
+            document.body.classList.remove('swiper-touching');
+        }, { passive: true });
+    }
+
     const swiper = new Swiper('.swiper', {
         effect: 'coverflow',
         grabCursor: true,
@@ -173,6 +188,14 @@ window.addEventListener('load', () => {
         loop: true,
         spaceBetween: 20,
         speed: 600,
+        resistanceRatio: 0.85,
+        longSwipesMs: 250,
+        longSwipesRatio: 0.2,
+        followFinger: true,
+        slideToClickedSlide: false,
+        updateOnWindowResize: false,
+        observer: false,
+        observeParents: false,
         coverflowEffect: {
             rotate: 0,
             stretch: 0,
@@ -190,9 +213,6 @@ window.addEventListener('load', () => {
         },
         watchSlidesProgress: true,
         preloadImages: false,
-        updateOnWindowResize: true,
-        observer: true,
-        observeParents: true,
         lazy: {
             loadPrevNext: true,
             loadPrevNextAmount: 2,
@@ -217,15 +237,6 @@ window.addEventListener('load', () => {
         }
     });
 
-    // Preload critical resources
-    const preloadImages = () => {
-        for (let i = 1; i <= 3; i++) {
-            const img = new Image();
-            img.src = `assets/images/ss-${i}.webp`;
-        }
-    };
-
-    setTimeout(preloadImages, 1000);
 });
 
 // Optimize for reduced motion preference

@@ -477,10 +477,22 @@ header {
     min-height: 700px;
     padding-top: 50px;
     padding-bottom: 50px;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    touch-action: pan-y pinch-zoom;
+}
+
+@media (max-width: 480px) {
+    .screenshots-slider { min-height: 520px; }
+    .swiper { min-height: 520px; }
 }
 
 .swiper-wrapper {
     align-items: center;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .swiper-slide {
@@ -506,6 +518,8 @@ header {
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
+    content-visibility: auto;
+    contain-intrinsic-size: 775px 360px;
 }
 
 .swiper-slide-content {
@@ -524,6 +538,9 @@ header {
     border-radius: 25px;
     border: 4px solid #87CEEB;
     box-sizing: border-box;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .swiper-slide:not(.swiper-slide-active) {
@@ -551,6 +568,12 @@ header {
     border-radius: 25px;
     transform: translateZ(0);
     will-change: opacity;
+}
+
+/* Pause heavy background animations during touch gestures for smoother swiping */
+.swiper-touching .sparkle,
+.swiper-touching .droplet {
+    animation-play-state: paused !important;
 }
 
 .swiper-pagination {
