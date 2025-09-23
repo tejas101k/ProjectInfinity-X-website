@@ -9,7 +9,7 @@ function createParticles(type, count, containerId) {
     const colors = type === 'sparkle' ?
         ['#4285f4', '#00c6ff', '#3ddc84', '#fbbc04', '#34a853'] :
         ['#4285f4', '#00c6ff', '#3ddc84'];
-
+    
     // Pre-calculated shaded colors for better performance
     const shadedColors = colors.map(color => ({
         base: color,
@@ -82,19 +82,12 @@ document.addEventListener('click', function (event) {
 
 // Helper function to shade colors
 function shadeColor(color, percent) {
-    let R = parseInt(color.substring(1, 3), 16);
-    let G = parseInt(color.substring(3, 5), 16);
-    let B = parseInt(color.substring(5, 7), 16);
-
-    R = parseInt(R * (100 + percent) / 100);
-    G = parseInt(G * (100 + percent) / 100);
-    B = parseInt(B * (100 + percent) / 100);
-
-    R = (R < 255) ? R : 255;
-    G = (G < 255) ? G : 255;
-    B = (B < 255) ? B : 255;
-
-    return `#${R.toString(16).padStart(2, '0')}${G.toString(16).padStart(2, '0')}${B.toString(16).padStart(2, '0')}`;
+    const num = parseInt(color.slice(1), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = Math.max(0, Math.min(255, (num >> 16) + amt));
+    const G = Math.max(0, Math.min(255, (num >> 8 & 0x00FF) + amt));
+    const B = Math.max(0, Math.min(255, (num & 0x0000FF) + amt));
+    return `#${(0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1)}`;
 }
 
 // Intersection Observer for scroll animations
