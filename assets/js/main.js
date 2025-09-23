@@ -10,6 +10,12 @@ function createParticles(type, count, containerId) {
         ['#4285f4', '#00c6ff', '#3ddc84', '#fbbc04', '#34a853'] :
         ['#4285f4', '#00c6ff', '#3ddc84'];
 
+    // Pre-calculated shaded colors for better performance
+    const shadedColors = colors.map(color => ({
+        base: color,
+        shaded: shadeColor(color, -20)
+    }));
+
     for (let i = 0; i < count; i++) {
         const particle = document.createElement('div');
         particle.classList.add(type);
@@ -19,11 +25,11 @@ function createParticles(type, count, containerId) {
         particle.style.left = `${left}%`;
         particle.style.top = `${top}%`;
 
-        const color = colors[Math.floor(Math.random() * colors.length)];
+        const colorPair = shadedColors[Math.floor(Math.random() * shadedColors.length)];
 
         if (type === 'sparkle') {
-            particle.style.backgroundColor = color;
-            particle.style.boxShadow = `0 0 8px 2px ${color}`;
+            particle.style.backgroundColor = colorPair.base;
+            particle.style.boxShadow = `0 0 8px 2px ${colorPair.base}`;
 
             const size = Math.random() * 3 + 2;
             particle.style.width = `${size}px`;
@@ -39,7 +45,7 @@ function createParticles(type, count, containerId) {
             particle.style.animationDuration = `${duration}s`;
             particle.style.animationDelay = `${delay}s`;
         } else {
-            particle.style.background = `linear-gradient(to bottom, ${color}, ${shadeColor(color, -20)})`;
+            particle.style.background = `linear-gradient(to bottom, ${colorPair.base}, ${colorPair.shaded})`;
 
             const width = Math.random() * 8 + 4;
             const height = width * 1.5;
