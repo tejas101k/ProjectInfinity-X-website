@@ -179,12 +179,13 @@ window.addEventListener('load', () => {
         slidesPerView: 'auto',
         loop: true,
         spaceBetween: 20,
+        speed: 600,
         coverflowEffect: {
             rotate: 0,
             stretch: 0,
             depth: 200,
             modifier: 1.5,
-            slideShadows: true
+            slideShadows: false
         },
         pagination: {
             el: '.swiper-pagination',
@@ -196,6 +197,9 @@ window.addEventListener('load', () => {
         },
         watchSlidesProgress: true,
         preloadImages: false,
+        updateOnWindowResize: true,
+        observer: true,
+        observeParents: true,
         lazy: {
             loadPrevNext: true,
             loadPrevNextAmount: 2,
