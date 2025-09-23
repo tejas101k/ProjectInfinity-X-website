@@ -765,12 +765,6 @@ footer::before {
     }
 }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
 @keyframes pulse {
     0% {
         box-shadow: 0 0 0 0 rgba(66, 133, 244, 0.5);
