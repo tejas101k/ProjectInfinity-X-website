@@ -1,0 +1,53 @@
+/* Base styles */
+.fa,.fab,.fas{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1}
+
+/* Font definitions with font-display */
+@font-face{font-family:"Font Awesome 6 Free";font-style:normal;font-weight:900;font-display:swap;src:url(../vendor/fontawesome/webfonts/fa-solid-900.woff2) format("woff2"),url(../vendor/fontawesome/webfonts/fa-solid-900.ttf) format("truetype")}
+@font-face{font-family:"Font Awesome 6 Brands";font-style:normal;font-weight:400;font-display:swap;src:url(../vendor/fontawesome/webfonts/fa-brands-400.woff2) format("woff2"),url(../vendor/fontawesome/webfonts/fa-brands-400.ttf) format("truetype")}
+
+/* Solid icons */
+.fas{font-family:"Font Awesome 6 Free";font-weight:900}
+
+/* Brand icons */
+.fab{font-family:"Font Awesome 6 Brands";font-weight:400}
+
+/* Icon definitions - only the ones we actually use */
+.fa-infinity:before{content:"\f534"}
+.fa-arrow-left:before{content:"\f060"}
+.fa-search:before{content:"\f002"}
+.fa-exclamation-triangle:before{content:"\f071"}
+.fa-info-circle:before{content:"\f05a"}
+.fa-download:before{content:"\f019"}
+.fa-file-alt:before{content:"\f15c"}
+.fa-home:before{content:"\f015"}
+.fa-magic:before{content:"\f0d0"}
+.fa-sync-alt:before{content:"\f2f1"}
+.fa-headset:before{content:"\f590"}
+.fa-bars:before{content:"\f0c9"}
+.fa-bolt:before{content:"\f0e7"}
+.fa-image:before{content:"\f03e"}
+.fa-users:before{content:"\f0c0"}
+.fa-gavel:before{content:"\f0e3"}
+.fa-globe:before{content:"\f0ac"}
+.fa-user-cog:before{content:"\f4fe"}
+.fa-user:before{content:"\f007"}
+.fa-donate:before{content:"\f4b9"}
+.fa-exclamation-circle:before{content:"\f06a"}
+.fa-star:before{content:"\f005"}
+.fa-palette:before{content:"\f53f"}
+.fa-shield-alt:before{content:"\f3ed"}
+.fa-arrows-alt-h:before{content:"\f337"}
+.fa-user-plus:before{content:"\f234"}
+
+/* Brand icons */
+.fa-github:before{content:"\f09b"}
+.fa-telegram:before{content:"\f2c6"}
+.fa-google:before{content:"\f1a0"}
+.fa-android:before{content:"\f17b"}
+.fa-forumbee:before{content:"\f211"}
+
+/* Utility classes */
+.fa-fw{text-align:center;width:1.25em}
+.fa-lg{font-size:1.25em;line-height:.05em;vertical-align:-.075em}
+.fa-2x{font-size:2em}
+.fa-3x{font-size:3em}
