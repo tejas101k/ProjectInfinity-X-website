@@ -2,22 +2,32 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Infinity X</title>
-    <meta name="description" content="Infinity X is an AOSP custom ROM that brings refined performance, stunning visuals and endless customization to your Android device." />
-    <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon">
-            <link rel="preload" as="style" href="assets/css/fa-minimal.css" onload="this.onload=null;this.rel='stylesheet'">
-            <noscript><link rel="stylesheet" href="assets/css/fa-minimal.css"></noscript>
-
-    <link rel="preload" as="style" href="assets/vendor/fonts/fonts.css" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="assets/vendor/fonts/fonts.css"></noscript>
-
-    <link rel="preload" as="style" href="assets/vendor/swiper/swiper-bundle.min.css" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="assets/vendor/swiper/swiper-bundle.min.css"></noscript>
-    <link rel="preload" as="style" href="assets/css/main.css" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="assets/css/main.css"></noscript>
-    <link rel="preload" as="image" href="assets/images/ss-1.webp"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infinity X</title>
+  <meta name="description" content="Infinity X is an AOSP custom ROM that brings refined performance, stunning visuals and endless customization to your Android device." />
+  <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon">
+  
+  <!-- Critical above-the-fold CSS inlined to avoid FOUC while keeping full stylesheet async -->
+  <link rel="preload" href="assets/css/critical.css" as="style">
+  <link rel="stylesheet" href="assets/css/critical.css">
+  
+  <link rel="preload" as="font" type="font/woff2" href="assets/vendor/fonts/roboto-400.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/vendor/fonts/google-sans-700.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/vendor/fontawesome/webfonts/fa-solid-900.woff2" crossorigin>
+  <link rel="preconnect" href="/" fetchpriority="low">
+  
+  <link rel="preload" as="style" href="assets/css/fa-minimal.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="assets/css/fa-minimal.css"></noscript>
+  
+  <link rel="preload" as="style" href="assets/vendor/fonts/fonts.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="assets/vendor/fonts/fonts.css"></noscript>
+  
+  <link rel="preload" as="style" href="assets/vendor/swiper/swiper-bundle.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="assets/vendor/swiper/swiper-bundle.min.css"></noscript>
+  <link rel="preload" as="style" href="assets/css/main.css" onload="this.onload=null;this.rel='stylesheet'" fetchpriority="high">
+  <noscript><link rel="stylesheet" href="assets/css/main.css"></noscript>
+  <link rel="preload" as="image" href="assets/images/ss-1.webp"/>
 </head>
 
 <body>
@@ -31,7 +41,7 @@
 
         <div class="container">
             <div class="hero-content">
-                <h1>Experience <span class="limitless-color-shift">Limitless Possibilities</span> with Android Reimagined</h1>
+                <h1 id="hero-heading" style="contain:content">Experience <span class="limitless-color-shift">Limitless Possibilities</span> with Android Reimagined</h1>
                 <p>Project Infinity X is an AOSP custom ROM that brings refined performance, stunning visuals and endless customization to your Android device. Built on stability and designed for enthusiasts.</p>
                 <div class="hero-buttons">
                     <a href="#download" class="btn btn-primary">
