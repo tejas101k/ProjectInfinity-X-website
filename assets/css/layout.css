@@ -1,0 +1,23 @@
+/* Layout CSS - Common header and navigation spacing styles */
+#header-placeholder {
+  min-height: 110px;
+  display: block;
+}
+
+.mobile-nav-container {
+  min-height: 0;
+}
+
+@media (max-width: 780px) {
+  header {
+    display: none;
+  }
+  
+  #header-placeholder {
+    min-height: 140px;
+  }
+  
+  .mobile-nav-container {
+    min-height: 140px;
+  }
+}

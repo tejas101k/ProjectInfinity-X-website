@@ -1,0 +1,11 @@
+/* Layout CSS for 404 page - specific header behavior */
+#header-placeholder {
+  min-height: 110px;
+  display: block;
+}
+
+@media (max-width: 780px) {
+  #header-placeholder {
+    display: none !important;
+  }
+}
