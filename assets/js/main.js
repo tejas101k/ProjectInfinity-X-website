@@ -151,39 +151,72 @@ document.addEventListener('DOMContentLoaded', () => {
                 swiperEl.addEventListener('touchcancel', removeTouching, { passive: true });
 
                 new Swiper('.swiper', {
-                    effect: 'coverflow',
-                    grabCursor: true,
-                    centeredSlides: true,
-                    slidesPerView: 'auto',
-                    loop: true,
-                    spaceBetween: 20,
-                    speed: 600,
-                    resistanceRatio: 0.85,
-                    longSwipesMs: 250,
-                    longSwipesRatio: 0.2,
-                    followFinger: true,
-                    slideToClickedSlide: false,
-                    updateOnWindowResize: false,
-                    observer: false,
-                    observeParents: false,
-                    coverflowEffect: {
-                        rotate: 0,
-                        stretch: 0,
-                        depth: 200,
-                        modifier: 1.5,
-                        slideShadows: false
-                    },
-                    pagination: { el: '.swiper-pagination', clickable: true },
-                    autoplay: { delay: 5000, disableOnInteraction: false },
-                    watchSlidesProgress: true,
-                    preloadImages: false,
-                    lazy: { loadPrevNext: true, loadPrevNextAmount: 2 },
-                    breakpoints: {
-                        320: { slidesPerView: 'auto', spaceBetween: 10 },
-                        480: { slidesPerView: 'auto', spaceBetween: 15 },
-                        768: { slidesPerView: 'auto', spaceBetween: 20 },
-                        992: { slidesPerView: 'auto', spaceBetween: 30 }
-                    }
+                    // Use lighter config on small screens to avoid heavy 3D transforms / filters
+                    ...(function(){
+                        const isSmall = window.matchMedia('(max-width: 780px)').matches;
+                        if (isSmall) {
+                            return {
+                                effect: 'slide',
+                                grabCursor: true,
+                                centeredSlides: true,
+                                slidesPerView: 'auto',
+                                loop: true,
+                                spaceBetween: 14,
+                                speed: 320,
+                                resistanceRatio: 0.8,
+                                followFinger: true,
+                                slideToClickedSlide: true,
+                                updateOnWindowResize: false,
+                                observer: false,
+                                observeParents: false,
+                                pagination: { el: '.swiper-pagination', clickable: true },
+                                autoplay: false,
+                                preloadImages: false,
+                                lazy: { loadPrevNext: true, loadPrevNextAmount: 1 },
+                                breakpoints: {
+                                    320: { slidesPerView: 'auto', spaceBetween: 10 },
+                                    480: { slidesPerView: 'auto', spaceBetween: 12 },
+                                    640: { slidesPerView: 'auto', spaceBetween: 14 }
+                                }
+                            };
+                        }
+                        // Desktop / larger screens keep richer coverflow effect
+                        return {
+                            effect: 'coverflow',
+                            grabCursor: true,
+                            centeredSlides: true,
+                            slidesPerView: 'auto',
+                            loop: true,
+                            spaceBetween: 20,
+                            speed: 600,
+                            resistanceRatio: 0.85,
+                            longSwipesMs: 250,
+                            longSwipesRatio: 0.2,
+                            followFinger: true,
+                            slideToClickedSlide: false,
+                            updateOnWindowResize: false,
+                            observer: false,
+                            observeParents: false,
+                            coverflowEffect: {
+                                rotate: 0,
+                                stretch: 0,
+                                depth: 200,
+                                modifier: 1.5,
+                                slideShadows: false
+                            },
+                            pagination: { el: '.swiper-pagination', clickable: true },
+                            autoplay: { delay: 5000, disableOnInteraction: false },
+                            watchSlidesProgress: true,
+                            preloadImages: false,
+                            lazy: { loadPrevNext: true, loadPrevNextAmount: 2 },
+                            breakpoints: {
+                                320: { slidesPerView: 'auto', spaceBetween: 10 },
+                                480: { slidesPerView: 'auto', spaceBetween: 15 },
+                                768: { slidesPerView: 'auto', spaceBetween: 20 },
+                                992: { slidesPerView: 'auto', spaceBetween: 30 }
+                            }
+                        };
+                    })()
                 });
             };
             document.head.appendChild(script);
