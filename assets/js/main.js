@@ -93,11 +93,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            window.scrollTo({
-                top: target.offsetTop - 80,
-                behavior: 'smooth'
-            });
+        if (target && typeof target.scrollIntoView === 'function') {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             const links = document.getElementById('mobileNavLinks');
             if (links) links.classList.remove('active');
@@ -105,12 +102,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add a small delay to hero animations for better effect
-setTimeout(() => {
-    document.querySelector('.hero h1').style.animation = 'fadeUp 1s ease forwards';
-    document.querySelector('.hero p').style.animation = 'fadeUp 1s ease 0.2s forwards';
-    document.querySelector('.hero-buttons').style.animation = 'fadeUp 1s ease 0.4s forwards';
-}, 300);
 
 // Create background elements with optimized counts
 document.addEventListener('DOMContentLoaded', () => {
@@ -140,77 +131,74 @@ document.addEventListener('DOMContentLoaded', () => {
         swiperWrapper.appendChild(slide);
     }
 
-    // Initialize Swiper carousel with optimized settings
+    // Lazy-load Swiper library only when slider is about to enter the viewport
     const swiperEl = document.querySelector('.swiper');
     if (swiperEl) {
-        // Pause background effects during touch for smoother swipes
-        swiperEl.addEventListener('touchstart', () => {
-            document.body.classList.add('swiper-touching');
-        }, { passive: true });
-        swiperEl.addEventListener('touchend', () => {
-            document.body.classList.remove('swiper-touching');
-        }, { passive: true });
-        swiperEl.addEventListener('touchcancel', () => {
-            document.body.classList.remove('swiper-touching');
-        }, { passive: true });
-    }
+        const initSwiper = () => {
+            // Prevent double init
+            if (swiperEl.__initialized) return;
+            swiperEl.__initialized = true;
+            const script = document.createElement('script');
+            script.src = 'assets/vendor/swiper/swiper-bundle.min.js';
+            script.async = true;
+            script.onload = () => {
+                // Pause background effects during touch for smoother swipes
+                swiperEl.addEventListener('touchstart', () => {
+                    document.body.classList.add('swiper-touching');
+                }, { passive: true });
+                const removeTouching = () => document.body.classList.remove('swiper-touching');
+                swiperEl.addEventListener('touchend', removeTouching, { passive: true });
+                swiperEl.addEventListener('touchcancel', removeTouching, { passive: true });
 
-    const swiper = new Swiper('.swiper', {
-        effect: 'coverflow',
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        loop: true,
-        spaceBetween: 20,
-        speed: 600,
-        resistanceRatio: 0.85,
-        longSwipesMs: 250,
-        longSwipesRatio: 0.2,
-        followFinger: true,
-        slideToClickedSlide: false,
-        updateOnWindowResize: false,
-        observer: false,
-        observeParents: false,
-        coverflowEffect: {
-            rotate: 0,
-            stretch: 0,
-            depth: 200,
-            modifier: 1.5,
-            slideShadows: false
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-        },
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        watchSlidesProgress: true,
-        preloadImages: false,
-        lazy: {
-            loadPrevNext: true,
-            loadPrevNextAmount: 2,
-        },
-        breakpoints: {
-            320: {
-                slidesPerView: 'auto',
-                spaceBetween: 10
-            },
-            480: {
-                slidesPerView: 'auto',
-                spaceBetween: 15
-            },
-            768: {
-                slidesPerView: 'auto',
-                spaceBetween: 20
-            },
-            992: {
-                slidesPerView: 'auto',
-                spaceBetween: 30
-            }
-        }
-    });
+                new Swiper('.swiper', {
+                    effect: 'coverflow',
+                    grabCursor: true,
+                    centeredSlides: true,
+                    slidesPerView: 'auto',
+                    loop: true,
+                    spaceBetween: 20,
+                    speed: 600,
+                    resistanceRatio: 0.85,
+                    longSwipesMs: 250,
+                    longSwipesRatio: 0.2,
+                    followFinger: true,
+                    slideToClickedSlide: false,
+                    updateOnWindowResize: false,
+                    observer: false,
+                    observeParents: false,
+                    coverflowEffect: {
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 200,
+                        modifier: 1.5,
+                        slideShadows: false
+                    },
+                    pagination: { el: '.swiper-pagination', clickable: true },
+                    autoplay: { delay: 5000, disableOnInteraction: false },
+                    watchSlidesProgress: true,
+                    preloadImages: false,
+                    lazy: { loadPrevNext: true, loadPrevNextAmount: 2 },
+                    breakpoints: {
+                        320: { slidesPerView: 'auto', spaceBetween: 10 },
+                        480: { slidesPerView: 'auto', spaceBetween: 15 },
+                        768: { slidesPerView: 'auto', spaceBetween: 20 },
+                        992: { slidesPerView: 'auto', spaceBetween: 30 }
+                    }
+                });
+            };
+            document.head.appendChild(script);
+        };
+
+        const io = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    initSwiper();
+                    obs.disconnect();
+                }
+            });
+        }, { rootMargin: '400px 0px' });
+        io.observe(swiperEl);
+    }
 
 });
 
