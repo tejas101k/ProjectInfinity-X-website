@@ -574,6 +574,16 @@ header {
     will-change: opacity;
 }
 
+/* Mobile performance optimizations: avoid expensive filters & overlay layer on small screens */
+@media (max-width: 780px) {
+    .swiper-slide { transition: transform 0.35s ease; }
+    .swiper-slide:not(.swiper-slide-active) { filter: none; }
+    .swiper-slide:not(.swiper-slide-active)::after { display: none; }
+    .swiper { padding-top: 40px; padding-bottom: 40px; }
+    .swiper, .swiper-wrapper, .swiper-slide, .swiper-slide img { will-change: auto !important; }
+    .swiper-slide img { object-fit: contain; background:#000; }
+}
+
 /* Pause heavy background animations during touch gestures for smoother swiping */
 .swiper-touching .sparkle,
 .swiper-touching .droplet {
@@ -962,28 +972,10 @@ footer::before {
 
 /* Responsive */
 @media (max-width: 1200px) {
-    .swiper-slide {
-        width: 340px;
-    }
-}
-
-@media (max-width: 992px) {
-    .hero h1 {
-        font-size: 3rem;
-    }
-
-    .hero {
-        padding: 80px 0 100px;
-    }
-
-    .swiper-slide {
-        width: 300px;
-    }
-
-    .screenshots-slider,
-    .swiper {
-        min-height: 650px;
-    }
+  .hero { padding:80px 0 100px; }
+  .hero h1 { font-size:3rem; }
+  .screenshots-slider, .swiper { min-height:650px; }
+  .swiper-slide { width:300px; }
 }
 
 @media (max-width: 768px) {
