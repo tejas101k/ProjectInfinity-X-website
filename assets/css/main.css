@@ -38,6 +38,9 @@ body {
     position: relative;
 }
 
+/* Create a consistent anchor offset so JS doesn't need to compute offsets */
+section { scroll-margin-top: 80px; }
+
 .android-bar {
     height: 4px;
     background: linear-gradient(90deg, var(--primary), var(--secondary));
@@ -68,12 +71,13 @@ body {
     100% { color: #4285f4; }
 }
 
-.heading-color-shift {
-    animation: headingColorShift 4s infinite ease-in-out;
-}
-
+/* Avoid continuous color animations on text above-the-fold to prevent style invalidations */
+.heading-color-shift,
 .limitless-color-shift {
-    animation: limitlessColorShift 3s infinite ease-in-out;
+    animation: none;
+}
+.section-title h2 {
+    color: var(--primary);
 }
 
 /* Header Styles */
@@ -82,6 +86,9 @@ header {
     position: relative;
     z-index: 10;
 }
+
+/* Reserve space for header when injected via templating to avoid CLS */
+#header-placeholder { min-height: 110px; display: block; }
 
 .navbar {
     display: flex;
@@ -205,11 +212,10 @@ header {
     font-family: 'Google Sans', sans-serif;
     font-size: 3.5rem;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.15;
     margin-bottom: 20px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 1s ease forwards;
+    opacity: 1;
+    transform: none;
     will-change: opacity, transform;
 }
 
@@ -223,9 +229,8 @@ header {
 .hero p {
     font-size: 1.2rem;
     margin-bottom: 30px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 1s ease 0.2s forwards;
+    opacity: 1;
+    transform: none;
     color: rgba(255, 255, 255, 0.8);
     will-change: opacity, transform;
 }
@@ -234,9 +239,8 @@ header {
     display: flex;
     gap: 15px;
     margin-top: 30px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 1s ease 0.4s forwards;
+    opacity: 1;
+    transform: none;
     justify-content: center;
     will-change: opacity, transform;
 }
