@@ -88,7 +88,14 @@ header {
 }
 
 /* Reserve space for header when injected via templating to avoid CLS */
-#header-placeholder { min-height: 110px; display: block; }
+#header-placeholder { min-height: 110px; display: block; contain: layout style; }
+
+/* Mobile navigation height consistency */
+@media (max-width: 780px) {
+    #header-placeholder {
+        min-height: 140px;
+    }
+}
 
 .navbar {
     display: flex;
@@ -198,6 +205,7 @@ header {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 
                 0 0 100px rgba(66, 133, 244, 0.1);
     will-change: transform;
+    contain: layout style;
 }
 
 .hero-content {
@@ -206,6 +214,7 @@ header {
     z-index: 2;
     margin: 0 auto;
     text-align: center;
+    contain: layout style;
 }
 
 .hero h1 {
@@ -377,6 +386,8 @@ header {
     align-items: center;
     z-index: 1;
     box-shadow: 0 0 20px rgba(66, 133, 244, 0.1); /* Subtle glow effect */
+    contain: layout style;
+    min-height: 220px;
 }
 
 .feature-card:hover {
@@ -545,6 +556,8 @@ header {
     will-change: transform, opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
+    aspect-ratio: 9 / 19.5;
+    min-height: 600px;
 }
 
 .swiper-slide:not(.swiper-slide-active) {
@@ -581,7 +594,7 @@ header {
     .swiper-slide:not(.swiper-slide-active)::after { display: none; }
     .swiper { padding-top: 40px; padding-bottom: 40px; }
     .swiper, .swiper-wrapper, .swiper-slide, .swiper-slide img { will-change: auto !important; }
-    .swiper-slide img { object-fit: contain; background:#000; }
+    .swiper-slide img { object-fit: contain; background:#000; aspect-ratio: 9 / 19.5; min-height: 400px; }
 }
 
 /* Pause heavy background animations during touch gestures for smoother swiping */
@@ -861,6 +874,8 @@ footer::before {
     display: none;
     position: relative;
     z-index: 100;
+    contain: layout style;
+    min-height: 140px;
 }
 
 .mobile-top-bar {
@@ -921,6 +936,8 @@ footer::before {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.5px;
+    contain: layout style;
+    min-height: 2.5rem;
 }
 
 /* Mobile nav links */
@@ -935,6 +952,7 @@ footer::before {
     z-index: 999;
     border: 1px solid rgba(66, 133, 244, 0.2);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    contain: layout style;
     will-change: transform, opacity;
 }
 
