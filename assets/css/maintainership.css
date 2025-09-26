@@ -556,7 +556,7 @@ footer::before {
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: var(--card-bg);
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -571,7 +571,7 @@ footer::before {
 
 .mobile-menu-toggle i {
     font-size: 20px;
-    color: var(--light);
+    color: white;
 }
 
 .mobile-project-name {
