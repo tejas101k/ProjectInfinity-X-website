@@ -7,7 +7,8 @@
     <title>Infinity X</title>
     <meta name="description" content="Infinity X is an AOSP custom ROM that brings refined performance, stunning visuals and endless customization to your Android device." />
     <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="assets/vendor/fontawesome/fontawesome.css" />
+    <link rel="preload" as="style" href="assets/css/fa-minimal.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/css/fa-minimal.css"></noscript>
     <link rel="stylesheet" href="assets/vendor/fonts/fonts.css" />
     <link rel="stylesheet" href="assets/vendor/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -39,10 +40,12 @@
                 <p>Project Infinity X is an AOSP custom ROM that brings refined performance, stunning visuals and endless customization to your Android device. Built on stability and designed for enthusiasts.</p>
                 <div class="hero-buttons">
                     <a href="#download" class="btn btn-primary">
-                        <i class="fas fa-download"></i> Download Now
+                        <i class="fas fa-download" style="margin-right:8px;vertical-align:middle"></i>
+                        Download Now
                     </a>
                     <a href="#features" class="btn btn-secondary">
-                        <i class="fas fa-star"></i> Explore Features
+                        <i class="fas fa-star" style="margin-right:8px;vertical-align:middle"></i>
+                        Explore Features
                     </a>
                 </div>
             </div>
@@ -119,7 +122,8 @@
                 </div>
             </div>
             <div class="swipe-hint">
-                <i class="fas fa-arrows-alt-h"></i> Swipe to view more screenshots
+                <i class="fas fa-arrows-alt-h" style="margin-right:8px;vertical-align:middle"></i>
+                Swipe to view more screenshots
             </div>
         </div>
     </section>
@@ -151,7 +155,8 @@
                 </div>
                 <div class="download-cta">
                     <a href="https://projectinfinity-x.com/downloads" class="btn btn-primary">
-                        <i class="fas fa-download"></i> Download ROM
+                        <i class="fas fa-download" style="margin-right:8px;vertical-align:middle"></i>
+                        Download ROM
                     </a>
                 </div>
             </div>
@@ -161,7 +166,6 @@
     <!-- Footer -->
     <footer id="footer-placeholder"></footer>
 
-    <script src="assets/vendor/swiper/swiper-bundle.min.js" defer></script>
     <script src="assets/js/main.js" defer></script>
     <script src="/assets/js/templating.js" defer></script>
 </body>

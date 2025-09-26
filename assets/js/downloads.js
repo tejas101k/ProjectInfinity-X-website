@@ -226,7 +226,7 @@ async function loadDeviceDetails(codename) {
             link.href = deviceInfo.maintainerurl;
             link.target = '_blank';
             link.className = 'device-link';
-            link.innerHTML = '<i class="fa fa-user"></i> Reach';
+            link.innerHTML = '<i class="fas fa-user"></i> Reach';
             deviceDetailsLinks.appendChild(link);
         }
         if (deviceInfo.supportgroupurl) {
