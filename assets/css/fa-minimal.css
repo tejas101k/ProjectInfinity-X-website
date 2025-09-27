@@ -38,6 +38,9 @@
 .fa-shield-alt:before{content:"\f3ed"}
 .fa-arrows-alt-h:before{content:"\f337"}
 .fa-user-plus:before{content:"\f234"}
+.fa-cogs:before{content:"\f085"}
+.fa-wrench:before{content:"\f0ad"}
+.fa-question-circle:before{content:"\f059"}
 
 /* Brand icons */
 .fa-github:before{content:"\f09b"}
