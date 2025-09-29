@@ -59,8 +59,18 @@ header {
 
 /* Mobile navigation height consistency */
 @media (max-width: 780px) {
-    #header-placeholder {
-        min-height: 140px;
+    #header-placeholder { min-height: 90px; }
+    
+    /* Apply card styling only on mobile */
+    .faq-hero-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 32px 25px;
+        margin-bottom: 30px;
+        border: 1px solid rgba(66, 133, 244, 0.18);
+        will-change: transform;
+        contain: content;
+        content-visibility: auto;
     }
 }
 
@@ -159,7 +169,7 @@ header {
 }
 
 /* FAQ Hero Section */
-.faq-hero {
+.faq-hero-card {
     text-align: center;
     padding: 60px 0 40px 0;
     margin-bottom: 40px;
@@ -167,7 +177,7 @@ header {
     animation: fadeUp 1s ease forwards;
 }
 
-.faq-hero h1 {
+.faq-hero-card h1 {
     font-family: 'Google Sans', sans-serif;
     font-size: 3rem;
     font-weight: 700;
@@ -178,7 +188,7 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-.faq-hero p {
+.faq-hero-card p {
     font-size: 1.2rem;
     color: rgba(255, 255, 255, 0.7);
     max-width: 600px;
@@ -191,13 +201,14 @@ header {
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 30px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(66, 133, 244, 0.2);
-    transition: all 0.3s ease;
+    border: 1px solid rgba(66, 133, 244, 0.18);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeUp 1s ease forwards;
-    will-change: transform, box-shadow;
+    animation: fadeUp 0.8s ease forwards;
+    will-change: transform;
+    contain: content;
+    content-visibility: auto;
 }
 
 .faq-card:nth-child(2) { animation-delay: 0.1s; }
@@ -209,8 +220,8 @@ header {
 
 .faq-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(66, 133, 244, 0.2);
-    border-color: rgba(66, 133, 244, 0.4);
+    box-shadow: 0 8px 26px rgba(66, 133, 244, 0.18);
+    border-color: rgba(66, 133, 244, 0.35);
 }
 
 .faq-card h2 {
@@ -302,7 +313,7 @@ header {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
     font-size: 1rem;
 }
 
@@ -444,21 +455,21 @@ footer::before {
 }
 
 @keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(66, 133, 244, 0.5);
-    }
-    70% {
-        box-shadow: 0 0 0 15px rgba(66, 133, 244, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(66, 133, 244, 0);
-    }
+    0% { box-shadow: 0 0 0 0 rgba(66, 133, 244, 0.45); }
+    60% { box-shadow: 0 0 0 12px rgba(66, 133, 244, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(66, 133, 244, 0); }
 }
 
 
 @media (max-width: 480px) {
-    .faq-hero h1 {
+    .faq-hero-card h1 {
         font-size: 1.8rem;
+    }
+    .faq-hero-card { 
+        padding: 25px 20px;
+        background: var(--card-bg);
+        border-radius: 20px;
+        border: 1px solid rgba(66, 133, 244, 0.18);
     }
     
     .faq-card {
@@ -481,9 +492,14 @@ footer::before {
 
 /* Performance optimizations */
 .faq-card, .btn {
-    will-change: transform, opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
+}
+
+/* Respect reduced-motion and disable entrance animations */
+@media (prefers-reduced-motion: reduce) {
+    .faq-card { animation: none !important; opacity: 1 !important; transform: none !important; }
+    html { scroll-behavior: auto; }
 }
 
 /* Copyright link styles */
