@@ -24,7 +24,7 @@ html {
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: var(--darker);
+    background: #000;
     color: var(--light);
     line-height: 1.6;
     overflow-x: hidden;
@@ -148,69 +148,45 @@ header {
     box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
 }
 
-/* Hero Section - Optimized for Mobile */
-.hero {
-    padding: 100px 0 150px;
+/* Hero Card */
+.maintainership-hero-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 48px 40px 44px;
+    margin: 40px auto 10px;
+    max-width: 1000px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
     position: relative;
     overflow: hidden;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    border-radius: 40px;
-    margin: 20px;
-    background: var(--darkest);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
-        0 0 100px rgba(66, 133, 244, 0.1);
-    will-change: transform;
-}
-
-.hero-content {
-    max-width: 650px;
-    position: relative;
-    z-index: 2;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.hero h1 {
-    font-family: 'Google Sans', sans-serif;
-    font-size: 3.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 20px;
     opacity: 0;
-    transform: translateY(20px);
     animation: fadeUp 1s ease forwards;
-    will-change: opacity, transform;
 }
-
-.hero h1 span {
+.maintainership-hero-card::before,
+.maintainership-hero-card::after {
+    content: '';
+    position: absolute;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle at center, rgba(66,133,244,0.18), transparent 70%);
+    top: -60px; left: -40px;
+    filter: blur(2px);
+}
+.maintainership-hero-card::after { top: auto; bottom: -70px; left: auto; right: -50px; background: radial-gradient(circle at center, rgba(0,198,255,0.18), transparent 70%); }
+.maintainership-hero-card h1 {
+    font-family: 'Google Sans', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
     background: linear-gradient(to right, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 18px;
 }
-
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 1s ease 0.2s forwards;
-    color: rgba(255, 255, 255, 0.8);
-    will-change: opacity, transform;
+.maintainership-hero-card .tagline {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 760px;
+    margin: 0 auto 25px;
+    color: rgba(255,255,255,0.75);
 }
-
-.hero-buttons {
-    display: flex;
-    gap: 15px;
-    margin-top: 30px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 1s ease 0.4s forwards;
-    justify-content: center;
-    will-change: opacity, transform;
-}
+.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
 .btn {
     padding: 14px 32px;
@@ -250,43 +226,6 @@ header {
     border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Animated Background Elements */
-.sparkles-container,
-.droplets-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-    overflow: hidden;
-    border-radius: 40px;
-}
-
-.sparkle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8);
-    animation: sparkleMove linear infinite;
-    will-change: transform, opacity;
-}
-
-.droplet {
-    position: absolute;
-    width: 8px;
-    height: 12px;
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    background: linear-gradient(to bottom, var(--secondary), #1e88e5);
-    opacity: 0.8;
-    animation: dropletFall linear infinite;
-    transform: scale(0);
-    box-shadow: 0 0 10px rgba(66, 133, 244, 0.5);
-    will-change: transform, opacity;
-}
 
 /* Maintainership Content Card */
 .maintainer-card {
@@ -485,41 +424,6 @@ footer::before {
     }
 }
 
-@keyframes sparkleMove {
-    0% {
-        transform: translateY(-50px) scale(0.5) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-        transform: scale(1) rotate(45deg);
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(calc(100vh + 50px)) scale(0.5) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-@keyframes dropletFall {
-    0% {
-        transform: translateY(-50px) scale(0.5);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.8;
-        transform: scale(1);
-    }
-    90% {
-        opacity: 0.8;
-    }
-    100% {
-        transform: translateY(calc(100vh + 50px)) rotate(360deg);
-        opacity: 0;
-    }
-}
 
 /* MOBILE NAVIGATION - FIXED SPACING */
 .mobile-nav-container {
@@ -633,48 +537,14 @@ footer::before {
 
 /* Responsive - Optimized for Mobile */
 @media (max-width: 768px) {
-    /* Mobile navigation */
-    .navbar, .logo-text {
-        display: none;
-    }
-    
-    .mobile-nav-container {
-        display: block;
-    }
-    
-.hero {
-margin: 12px 10px 10px 10px;
-border-radius: 30px;
-padding: 48px 0 14px;
-min-height: 70vh;
-}
-    
-    .hero h1 {
-        font-size: 2.2rem;
-        margin-top: 0; /* Remove extra top margin */
-    }
-    
-    .hero p {
-        font-size: 1.1rem;
-    }
-    
-    .nav-cta {
-        display: none;
-    }
-    
-    .maintainer-card {
-        padding: 24px;
-        margin: 10px 10px 20px 10px;
-        border-radius: 24px;
-    }
-    
-    .maintainer-card h2 {
-        font-size: 1.8rem;
-    }
-    
-    .requirements h3 {
-        font-size: 1.3rem;
-    }
+    .navbar, .logo-text { display: none; }
+    .mobile-nav-container { display: block; }
+    .maintainership-hero-card { padding: 40px 30px 38px; margin: 30px 16px 0; }
+    .maintainership-hero-card h1 { font-size: clamp(1.9rem, 7vw, 2.4rem); }
+    .maintainership-hero-card .tagline { font-size: 1rem; }
+    .maintainer-card { padding: 24px; margin: 25px 16px 30px; border-radius: 24px; }
+    .maintainer-card h2 { font-size: 1.8rem; }
+    .requirements h3 { font-size: 1.25rem; }
 }
 
 @media (max-width: 480px) {
@@ -682,13 +552,9 @@ min-height: 70vh;
         font-size: 1.6rem;
     }
     
-    .hero h1 {
-        font-size: 1.8rem;
-    }
-    
-    .hero p {
-        font-size: 1rem;
-    }
+    .maintainership-hero-card h1 { font-size: clamp(1.8rem, 8vw, 2.2rem); }
+    .maintainership-hero-card { padding: 40px 26px 36px; }
+    .maintainership-hero-card .tagline { font-size: .95rem; }
     
     .btn {
         padding: 12px 22px;

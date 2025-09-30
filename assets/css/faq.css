@@ -60,18 +60,6 @@ header {
 /* Mobile navigation height consistency */
 @media (max-width: 780px) {
     #header-placeholder { min-height: 90px; }
-    
-    /* Apply card styling only on mobile */
-    .faq-hero-card {
-        background: var(--card-bg);
-        border-radius: 20px;
-        padding: 32px 25px;
-        margin-bottom: 30px;
-        border: 1px solid rgba(66, 133, 244, 0.18);
-        will-change: transform;
-        contain: content;
-        content-visibility: auto;
-    }
 }
 
 .navbar {
@@ -170,11 +158,39 @@ header {
 
 /* FAQ Hero Section */
 .faq-hero-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 48px 40px 44px;
+    margin: 40px auto 40px;
+    max-width: 1000px;
     text-align: center;
-    padding: 60px 0 40px 0;
-    margin-bottom: 40px;
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
     opacity: 0;
     animation: fadeUp 1s ease forwards;
+    will-change: transform;
+    contain: content;
+    content-visibility: auto;
+}
+
+.faq-hero-card::before, .faq-hero-card::after {
+    content: '';
+    position: absolute;
+    width: 220px; 
+    height: 220px;
+    background: radial-gradient(circle at center, rgba(66,133,244,0.18), transparent 70%);
+    top: -60px; 
+    left: -40px;
+    filter: blur(2px);
+}
+
+.faq-hero-card::after { 
+    top: auto; 
+    bottom: -70px; 
+    left: auto; 
+    right: -50px; 
+    background: radial-gradient(circle at center, rgba(0,198,255,0.18), transparent 70%); 
 }
 
 .faq-hero-card h1 {
@@ -466,10 +482,8 @@ footer::before {
         font-size: 1.8rem;
     }
     .faq-hero-card { 
-        padding: 25px 20px;
-        background: var(--card-bg);
-        border-radius: 20px;
-        border: 1px solid rgba(66, 133, 244, 0.18);
+        padding: 40px 28px 38px;
+        margin: 30px 16px 40px;
     }
     
     .faq-card {
