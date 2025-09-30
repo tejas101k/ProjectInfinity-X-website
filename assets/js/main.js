@@ -9,7 +9,7 @@ function createParticles(type, count, containerId) {
     const colors = type === 'sparkle' ?
         ['#4285f4', '#00c6ff', '#3ddc84', '#fbbc04', '#34a853'] :
         ['#4285f4', '#00c6ff', '#3ddc84'];
-    
+
     // Pre-calculated shaded colors for better performance
     const shadedColors = colors.map(color => ({
         base: color,
@@ -134,94 +134,140 @@ document.addEventListener('DOMContentLoaded', () => {
     // Lazy-load Swiper library only when slider is about to enter the viewport
     const swiperEl = document.querySelector('.swiper');
     if (swiperEl) {
+        // Configuration for different screen sizes
+        const getMobileConfig = () => ({
+            effect: 'slide',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 1,
+            loop: true,
+            spaceBetween: 14,
+            speed: 320,
+            resistance: true,
+            resistanceRatio: 0.65,
+            followFinger: true,
+            slideToClickedSlide: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                renderBullet: function (index, className) {
+                    return `<button class="${className}" aria-label="Go to slide ${index + 1}" tabindex="0"></button>`;
+                }
+            },
+            a11y: {
+                enabled: true,
+                prevSlideMessage: 'Previous slide',
+                nextSlideMessage: 'Next slide',
+                firstSlideMessage: 'This is the first slide',
+                lastSlideMessage: 'This is the last slide',
+                paginationBulletMessage: 'Go to slide {{index}}',
+                notificationClass: 'swiper-notification'
+            },
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true
+            },
+            autoplay: false,
+            preloadImages: false,
+            lazy: { loadPrevNext: true, loadPrevNextAmount: 1 },
+            touchEventsTarget: 'container',
+            touchRatio: 1,
+            touchAngle: 45,
+            simulateTouch: true,
+            shortSwipes: true,
+            threshold: 20,
+            breakpoints: {
+                320: { slidesPerView: 1, spaceBetween: 10 },
+                480: { slidesPerView: 1, spaceBetween: 12 },
+                640: { slidesPerView: 1, spaceBetween: 14 }
+            }
+        });
+
+        const getDesktopConfig = () => ({
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            loop: true,
+            spaceBetween: 20,
+            speed: 600,
+            resistanceRatio: 0.85,
+            longSwipesMs: 250,
+            longSwipesRatio: 0.2,
+            followFinger: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true
+            },
+            a11y: {
+                enabled: true,
+                prevSlideMessage: 'Previous slide',
+                nextSlideMessage: 'Next slide',
+                firstSlideMessage: 'This is the first slide',
+                lastSlideMessage: 'This is the last slide',
+                paginationBulletMessage: 'Go to slide {{index}}',
+                notificationClass: 'swiper-notification'
+            },
+            coverflowEffect: {
+                rotate: 0,
+                stretch: 0,
+                depth: 200,
+                modifier: 1.5,
+                slideShadows: false
+            },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            autoplay: { delay: 5000, disableOnInteraction: false },
+            watchSlidesProgress: true,
+            preloadImages: false,
+            lazy: { loadPrevNext: true, loadPrevNextAmount: 2 },
+            touchEventsTarget: 'wrapper',
+            touchRatio: 1,
+            touchAngle: 45,
+            simulateTouch: true,
+            breakpoints: {
+                320: { slidesPerView: 'auto', spaceBetween: 10 },
+                480: { slidesPerView: 'auto', spaceBetween: 15 },
+                768: { slidesPerView: 'auto', spaceBetween: 20 },
+                992: { slidesPerView: 'auto', spaceBetween: 30 }
+            }
+        });
+
         const initSwiper = () => {
-            // Prevent double init
             if (swiperEl.__initialized) return;
             swiperEl.__initialized = true;
+
             const script = document.createElement('script');
             script.src = 'assets/vendor/swiper/swiper-bundle.min.js';
             script.async = true;
-            script.onload = () => {
-                // Pause background effects during touch for smoother swipes
-                swiperEl.addEventListener('touchstart', () => {
-                    document.body.classList.add('swiper-touching');
-                }, { passive: true });
-                const removeTouching = () => document.body.classList.remove('swiper-touching');
-                swiperEl.addEventListener('touchend', removeTouching, { passive: true });
-                swiperEl.addEventListener('touchcancel', removeTouching, { passive: true });
 
-                new Swiper('.swiper', {
-                    // Use lighter config on small screens to avoid heavy 3D transforms / filters
-                    ...(function(){
-                        const isSmall = window.matchMedia('(max-width: 780px)').matches;
-                        if (isSmall) {
-                            return {
-                                effect: 'slide',
-                                grabCursor: true,
-                                centeredSlides: true,
-                                slidesPerView: 'auto',
-                                loop: true,
-                                spaceBetween: 14,
-                                speed: 320,
-                                resistanceRatio: 0.8,
-                                followFinger: true,
-                                slideToClickedSlide: true,
-                                updateOnWindowResize: false,
-                                observer: false,
-                                observeParents: false,
-                                pagination: { el: '.swiper-pagination', clickable: true },
-                                autoplay: false,
-                                preloadImages: false,
-                                lazy: { loadPrevNext: true, loadPrevNextAmount: 1 },
-                                breakpoints: {
-                                    320: { slidesPerView: 'auto', spaceBetween: 10 },
-                                    480: { slidesPerView: 'auto', spaceBetween: 12 },
-                                    640: { slidesPerView: 'auto', spaceBetween: 14 }
-                                }
-                            };
-                        }
-                        // Desktop / larger screens keep richer coverflow effect
-                        return {
-                            effect: 'coverflow',
-                            grabCursor: true,
-                            centeredSlides: true,
-                            slidesPerView: 'auto',
-                            loop: true,
-                            spaceBetween: 20,
-                            speed: 600,
-                            resistanceRatio: 0.85,
-                            longSwipesMs: 250,
-                            longSwipesRatio: 0.2,
-                            followFinger: true,
-                            slideToClickedSlide: false,
-                            updateOnWindowResize: false,
-                            observer: false,
-                            observeParents: false,
-                            coverflowEffect: {
-                                rotate: 0,
-                                stretch: 0,
-                                depth: 200,
-                                modifier: 1.5,
-                                slideShadows: false
-                            },
-                            pagination: { el: '.swiper-pagination', clickable: true },
-                            autoplay: { delay: 5000, disableOnInteraction: false },
-                            watchSlidesProgress: true,
-                            preloadImages: false,
-                            lazy: { loadPrevNext: true, loadPrevNextAmount: 2 },
-                            breakpoints: {
-                                320: { slidesPerView: 'auto', spaceBetween: 10 },
-                                480: { slidesPerView: 'auto', spaceBetween: 15 },
-                                768: { slidesPerView: 'auto', spaceBetween: 20 },
-                                992: { slidesPerView: 'auto', spaceBetween: 30 }
-                            }
-                        };
-                    })()
-                });
+            script.onload = () => {
+                // Add touch event handlers
+                const handleTouchStart = () => document.body.classList.add('swiper-touching');
+                const handleTouchEnd = () => document.body.classList.remove('swiper-touching');
+
+                swiperEl.addEventListener('touchstart', handleTouchStart, { passive: true });
+                swiperEl.addEventListener('touchend', handleTouchEnd, { passive: true });
+                swiperEl.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+
+                // Initialize Swiper with responsive config
+                const isSmall = window.matchMedia('(max-width: 780px)').matches;
+                const config = isSmall ? getMobileConfig() : getDesktopConfig();
+
+                new Swiper('.swiper', config);
             };
+
             document.head.appendChild(script);
         };
 
+        // Initialize when near viewport
         const io = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
