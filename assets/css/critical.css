@@ -66,7 +66,7 @@ header,
   margin: 20px;
   background: var(--darkest);
   box-shadow: 0 20px 50px rgba(0, 0, 0, .5), 0 0 100px rgba(66, 133, 244, .1);
-  contain: layout style;
+  contain: layout style paint;
 }
 
 .hero-content {
@@ -75,7 +75,7 @@ header,
   text-align: center;
   z-index: 2;
   position: relative;
-  contain: layout style;
+  contain: layout style paint;
 }
 
 .hero h1 {
@@ -85,7 +85,8 @@ header,
   line-height: 1.15;
   margin-bottom: 20px;
   font-size-adjust: .5;
-  contain: layout style;
+  contain: layout style paint;
+  content-visibility: auto;
 }
 
 .hero h1 span {
@@ -93,6 +94,42 @@ header,
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  will-change: auto;
+}
+
+@media (max-width: 780px) {
+  .hero h1 {
+    font-size: 2.2rem;
+    will-change: auto;
+  }
+  
+  .hero {
+    padding: 60px 0 80px;
+    min-height: 85vh;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+  
+  /* Hide particle containers initially on mobile for faster LCP */
+  .sparkles-container,
+  .droplets-container {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+  }
+  
+  .sparkles-container.visible,
+  .droplets-container.visible {
+    opacity: 1;
+  }
 }
 
 .hero p {
@@ -252,8 +289,27 @@ header,
   margin: 30px 20px;
   padding: 80px 0;
   contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
 }
 
 footer {
   margin-top: 40px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
+
+/* Desktop-specific optimizations */
+@media (min-width: 781px) {
+  .hero h1 {
+    /* Ensure desktop hero heading renders immediately */
+    will-change: auto;
+  }
+  
+  /* Optimize particle containers on desktop */
+  .sparkles-container,
+  .droplets-container {
+    will-change: auto;
+    contain: layout style;
+  }
 }

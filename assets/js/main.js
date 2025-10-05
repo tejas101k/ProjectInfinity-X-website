@@ -111,8 +111,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const sparkleCount = isMobile() ? 15 : 40;
         const dropletCount = isMobile() ? 8 : 20;
 
-        createParticles('sparkle', sparkleCount, 'sparkles');
-        createParticles('droplet', dropletCount, 'droplets');
+        // Defer particle creation to prioritize LCP on all devices
+        if (isMobile()) {
+            // Wait for the hero heading to be fully painted on mobile
+            requestIdleCallback(() => {
+                setTimeout(() => {
+                    createParticles('sparkle', sparkleCount, 'sparkles');
+                    createParticles('droplet', dropletCount, 'droplets');
+                    // Make particle containers visible after creation
+                    document.getElementById('sparkles')?.classList.add('visible');
+                    document.getElementById('droplets')?.classList.add('visible');
+                }, 500);
+            }, { timeout: 2000 });
+        } else {
+            // On desktop, defer slightly to allow hero content to render first
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    createParticles('sparkle', sparkleCount, 'sparkles');
+                    createParticles('droplet', dropletCount, 'droplets');
+                }, 100);
+            });
+        }
     }
 
     // Build screenshot slides early and hint decoding priorities
