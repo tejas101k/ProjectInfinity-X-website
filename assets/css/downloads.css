@@ -832,10 +832,18 @@
             }
 
             .android-version-buttons {
-                flex-direction: column;
+                flex-direction: row;
                 align-items: center;
+                justify-content: center;
+                flex-wrap: nowrap;
+                gap: 8px;
             }
-            
+
+            .android-version-btn {
+                padding: 8px 16px;
+                font-size: 0.95rem;
+            }
+
             /* Mobile placement for device links */
             .device-links {
                 gap: 8px;
