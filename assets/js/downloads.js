@@ -43,8 +43,7 @@ let currentAndroidVersion = '16';
 function formatFileSize(bytes) { if (bytes === 0) return '0 Bytes'; const k = 1024; const sizes = ['Bytes','KB','MB','GB']; const i = Math.floor(Math.log(bytes)/Math.log(k)); return parseFloat((bytes/Math.pow(k,i)).toFixed(2)) + ' ' + sizes[i]; }
 function formatTimestamp(timestamp) { const date = new Date(timestamp * 1000); return date.toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}); }
 function getPrimaryCodename(codename) { return codename.split('/')[0].trim(); }
-function getParameterByName(name) { const urlParams = new URLSearchParams(window.location.search); return urlParams.get(name); }
-function checkUrlForDevice() { const codename = getParameterByName('device'); if (codename) { loadDeviceDetails(codename); return true; } return false; }
+function getCodenameFromPath() { const path = window.location.pathname; const match = path.match(/\/downloads\/([a-zA-Z0-9_-]+)/); return match ? match[1] : null; }
 async function fetchContent(url, type = 'json') { if (deviceDataCache[url]) return deviceDataCache[url]; try { const response = await fetch(url); if (!response.ok) throw new Error("HTTP error! Status: "+response.status); let data; if (type === 'json') data = await response.json(); else data = await response.text(); deviceDataCache[url] = data; return data; } catch(e){return null;} }
 function getDeviceImageUrl(primaryCodename) { if (imageCache[primaryCodename]) return imageCache[primaryCodename]; return `https://raw.githubusercontent.com/ProjectInfinity-X/official_devices/16/deviceimages/${primaryCodename}.webp`; }
 function getBrandFromModel(modelName) { const lowerModel = modelName.toLowerCase(); for (const [brand, keywords] of Object.entries(BRAND_CATEGORIES)) { for (const keyword of keywords) { if (lowerModel.includes(keyword)) return brand; } } return 'Other'; }
@@ -77,7 +76,7 @@ async function loadDevices() {
         const masterCodenames = new Set(masterFiles.filter(f => f.name.endsWith('.json')).map(f => f.name.replace('.json', '')));
         const b16Codenames  = new Set(b16Files.filter(f => f.name.endsWith('.json')).map(f => f.name.replace('.json', '')));
         const allCodenames = Array.from(new Set([...masterCodenames, ...b16Codenames]));
-        allCodenames.sort((a, b) => a.localeCompare(b)); // sort ascending by codename (akita, ... Pong...)
+        allCodenames.sort((a, b) => a.localeCompare(b));
 
         const fetchPromises = allCodenames.map(async codename => {
             let info = null;
@@ -156,8 +155,7 @@ devicesGrid.addEventListener('click', function(e) {
     const card = e.target.closest('.device-card');
     if (card) {
         const codename = card.dataset.codename;
-        const newUrl = new URL(window.location);
-        newUrl.searchParams.set('device', codename);
+        const newUrl = `/downloads/${codename}`;
         window.history.pushState({ device: codename }, '', newUrl);
         loadDeviceDetails(codename);
     }
@@ -334,9 +332,7 @@ function switchAndroidVersion(version, codename) {
 function showDeviceList() {
     devicesListing.style.display = 'block';
     deviceDetails.style.display = 'none';
-    const newUrl = new URL(window.location);
-    newUrl.searchParams.delete('device');
-    window.history.replaceState({}, '', newUrl);
+    window.history.replaceState({}, '', '/downloads/');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     
     // If devices haven't been loaded yet, ensure they get loaded
@@ -360,7 +356,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupTabs();
     backToList.addEventListener('click', (e) => {e.preventDefault();showDeviceList();});
     window.addEventListener('popstate', (event) => {
-        if (getParameterByName('device')) loadDeviceDetails(getParameterByName('device'));
+        const codename = getCodenameFromPath();
+        if (codename) loadDeviceDetails(codename);
         else showDeviceList();
     });
     brandCategories.addEventListener('click', (e) => {
@@ -396,6 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     });
     loadDevices().then(() => {
-        checkUrlForDevice();
+        const codename = getCodenameFromPath();
+        if (codename) loadDeviceDetails(codename);
     });
 });
