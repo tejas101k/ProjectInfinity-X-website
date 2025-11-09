@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 swiperEl.addEventListener('touchend', removeTouching, { passive: true });
                 swiperEl.addEventListener('touchcancel', removeTouching, { passive: true });
 
-                new Swiper('.swiper', {
+                const swiper = new Swiper('.swiper', {
                     // Use lighter config on small screens to avoid heavy 3D transforms / filters
                     ...(function(){
                         const isSmall = window.matchMedia('(max-width: 780px)').matches;
@@ -235,7 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 992: { slidesPerView: 'auto', spaceBetween: 30 }
                             }
                         };
-                    })()
+                    })(),
+                    keyboard: { enabled: true, onlyInViewport: false }
                 });
             };
             document.head.appendChild(script);
