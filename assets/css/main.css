@@ -39,7 +39,7 @@ body {
 }
 
 /* Create a consistent anchor offset so JS doesn't need to compute offsets */
-section { scroll-margin-top: 80px; }
+section { scroll-margin-top: 20px; }
 
 .android-bar {
     height: 4px;
