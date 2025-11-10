@@ -41,6 +41,8 @@
 .fa-cogs:before{content:"\f085"}
 .fa-wrench:before{content:"\f0ad"}
 .fa-question-circle:before{content:"\f059"}
+.fa-chevron-up:before{content:"\f077"}
+.fa-chevron-down:before{content:"\f078"}
 
 /* Brand icons */
 .fa-github:before{content:"\f09b"}
