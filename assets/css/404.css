@@ -265,6 +265,8 @@
             position: relative;
             border-radius: 40px 40px 0 0;
             margin-top: 50px;
+            border: 2px solid #4285f4;
+            border-bottom: none;
         }
 
         footer::before {

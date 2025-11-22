@@ -622,7 +622,8 @@
             border-radius: 40px 40px 0 0;
             margin-top: 50px;
             background: rgba(0, 0, 0, 0.9);
-            border-top: 1px solid rgba(66, 133, 244, 0.1);
+            border: 2px solid #4285f4;
+            border-bottom: none;
         }
 
         .footer-content {

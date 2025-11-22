@@ -297,6 +297,9 @@ footer {
   margin-top: 40px;
   content-visibility: auto;
   contain-intrinsic-size: auto 400px;
+  border: 2px solid #4285f4;
+  border-bottom: none;
+  border-radius: 40px 40px 0 0;
 }
 
 /* Desktop-specific optimizations */
