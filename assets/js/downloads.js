@@ -214,29 +214,76 @@ async function loadDeviceDetails(codename) {
         currentAndroidVersion = useVersion;
 
         androidVersionButtons.innerHTML = '';
-        if (has17) {
-            const btn17 = document.createElement('button');
-            btn17.className = 'android-version-btn' + (currentAndroidVersion === '17' ? ' active':'');
-            btn17.dataset.version = '17';
-            btn17.textContent = 'Android 17';
-            btn17.addEventListener('click', () => switchAndroidVersion('17', codename));
-            androidVersionButtons.appendChild(btn17);
-        }
-        if (has16) {
-            const btn16 = document.createElement('button');
-            btn16.className = 'android-version-btn' + (currentAndroidVersion === '16' ? ' active':'');
-            btn16.dataset.version = '16';
-            btn16.textContent = 'Android 16';
-            btn16.addEventListener('click', () => switchAndroidVersion('16', codename));
-            androidVersionButtons.appendChild(btn16);
-        }
-        if (has15) {
-            const btn15 = document.createElement('button');
-            btn15.className = 'android-version-btn' + (currentAndroidVersion === '15' ? ' active':'');
-            btn15.dataset.version = '15';
-            btn15.textContent = 'Android 15';
-            btn15.addEventListener('click', () => switchAndroidVersion('15', codename));
-            androidVersionButtons.appendChild(btn15);
+
+        const availableVersions = [];
+        if (has17) availableVersions.push('17');
+        if (has16) availableVersions.push('16');
+        if (has15) availableVersions.push('15');
+
+        if (availableVersions.length === 1) {
+            const singleVer = availableVersions[0];
+            const singleBtn = document.createElement('button');
+            singleBtn.className = 'android-version-btn active';
+            singleBtn.dataset.version = singleVer;
+            singleBtn.textContent = `Android ${singleVer}`;
+            androidVersionButtons.appendChild(singleBtn);
+        } else {
+            const dropdownContainer = document.createElement('div');
+            dropdownContainer.className = 'version-dropdown-container';
+
+            const triggerBtn = document.createElement('button');
+            triggerBtn.className = 'android-version-btn active version-dropdown-trigger';
+            triggerBtn.type = 'button';
+            triggerBtn.setAttribute('aria-expanded', 'false');
+            triggerBtn.setAttribute('aria-haspopup', 'true');
+
+            const triggerSpan = document.createElement('span');
+            triggerSpan.textContent = `Android ${useVersion}`;
+            triggerBtn.appendChild(triggerSpan);
+            triggerBtn.appendChild(createDropdownArrowSvg());
+
+            const menu = document.createElement('div');
+            menu.className = 'version-dropdown-menu';
+
+            availableVersions.forEach(ver => {
+                const itemBtn = document.createElement('button');
+                itemBtn.className = 'version-dropdown-item' + (useVersion === ver ? ' active' : '');
+                itemBtn.dataset.version = ver;
+                itemBtn.type = 'button';
+
+                const itemSpan = document.createElement('span');
+                itemSpan.textContent = `Android ${ver}`;
+                itemBtn.appendChild(itemSpan);
+
+                if (useVersion === ver) {
+                    itemBtn.appendChild(createCheckSvg());
+                }
+
+                itemBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    closeAllVersionDropdowns();
+                    if (ver !== currentAndroidVersion) {
+                        switchAndroidVersion(ver, codename);
+                    }
+                });
+
+                menu.appendChild(itemBtn);
+            });
+
+            triggerBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = menu.classList.contains('show');
+                closeAllVersionDropdowns();
+                if (!isOpen) {
+                    menu.classList.add('show');
+                    triggerBtn.classList.add('open');
+                    triggerBtn.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            dropdownContainer.appendChild(triggerBtn);
+            dropdownContainer.appendChild(menu);
+            androidVersionButtons.appendChild(dropdownContainer);
         }
 
         const baseUrl = useVersion === '17'
@@ -373,11 +420,57 @@ async function loadDeviceDetails(codename) {
         });
     }
 }
+function createDropdownArrowSvg() {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'dropdown-arrow');
+    svg.setAttribute('width', '12');
+    svg.setAttribute('height', '12');
+    svg.setAttribute('viewBox', '0 0 12 12');
+    svg.setAttribute('fill', 'none');
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M2.5 4.5L6 8L9.5 4.5');
+    path.setAttribute('stroke', 'currentColor');
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+
+    svg.appendChild(path);
+    return svg;
+}
+
+function createCheckSvg() {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'item-check');
+    svg.setAttribute('width', '14');
+    svg.setAttribute('height', '14');
+    svg.setAttribute('viewBox', '0 0 14 14');
+    svg.setAttribute('fill', 'none');
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M2.5 7.5L5.5 10.5L11.5 3.5');
+    path.setAttribute('stroke', 'currentColor');
+    path.setAttribute('stroke-width', '2');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+
+    svg.appendChild(path);
+    return svg;
+}
+
+function closeAllVersionDropdowns() {
+    document.querySelectorAll('.version-dropdown-menu.show').forEach(m => m.classList.remove('show'));
+    document.querySelectorAll('.version-dropdown-trigger.open').forEach(t => {
+        t.classList.remove('open');
+        t.setAttribute('aria-expanded', 'false');
+    });
+}
 function switchAndroidVersion(version, codename) {
     currentAndroidVersion = version;
     if (codename) loadDeviceDetails(codename);
 }
 function showDeviceList() {
+    closeAllVersionDropdowns();
     devicesListing.style.display = 'block';
     deviceDetails.style.display = 'none';
     currentAndroidVersion = '17';
@@ -403,6 +496,18 @@ function setupTabs() {
 
 document.addEventListener('DOMContentLoaded', () => {
     setupTabs();
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.version-dropdown-container')) {
+            closeAllVersionDropdowns();
+        }
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeAllVersionDropdowns();
+        }
+    });
+    window.addEventListener('resize', closeAllVersionDropdowns);
+
     backToList.addEventListener('click', (e) => {e.preventDefault();showDeviceList();});
     window.addEventListener('popstate', (event) => {
         const codename = getCodenameFromPath();
