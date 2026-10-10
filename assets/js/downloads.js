@@ -45,7 +45,14 @@ let currentAndroidVersion = '17';
 function formatFileSize(bytes) { if (bytes === 0) return '0 Bytes'; const k = 1024; const sizes = ['Bytes','KB','MB','GB']; const i = Math.floor(Math.log(bytes)/Math.log(k)); return parseFloat((bytes/Math.pow(k,i)).toFixed(2)) + ' ' + sizes[i]; }
 function formatTimestamp(timestamp) { const date = new Date(timestamp * 1000); return date.toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}); }
 function getPrimaryCodename(codename) { return codename.split('/')[0].trim(); }
-function getCodenameFromPath() { const path = window.location.pathname; const match = path.match(/\/downloads\/([a-zA-Z0-9_-]+)/); return match ? match[1] : null; }
+function getCodenameFromPath() {
+    const path = window.location.pathname;
+    const match = path.match(/\/downloads\/([a-zA-Z0-9_-]+)/);
+    if (!match) return null;
+    const codename = match[1].toLowerCase().trim();
+    if (codename === 'index' || codename === 'index.html') return null;
+    return match[1];
+}
 async function fetchContent(url, type = 'json') { if (deviceDataCache[url]) return deviceDataCache[url]; try { const response = await fetch(url); if (!response.ok) throw new Error("HTTP error! Status: "+response.status); let data; if (type === 'json') data = await response.json(); else data = await response.text(); deviceDataCache[url] = data; return data; } catch(e){return null;} }
 function getDeviceImageUrl(primaryCodename, branch = '17') {
     if (imageCache[primaryCodename]) return imageCache[primaryCodename];
@@ -550,8 +557,7 @@ document.addEventListener('DOMContentLoaded', () => {
             displayDevices(filteredDevices);
         }, 300);
     });
-    loadDevices().then(() => {
-        const codename = getCodenameFromPath();
-        if (codename) loadDeviceDetails(codename);
-    });
+    const codename = getCodenameFromPath();
+    if (codename) loadDeviceDetails(codename);
+    loadDevices();
 });
