@@ -59,7 +59,27 @@ async function fetchTextWithFallback(dir, primaryCodename) {
     if (txtContent) return txtContent;
     return await fetchContent(`${dir}${primaryCodename}.md`, 'text');
 }
+function handleImageLoad(img, primaryCodename, branch) {
+    if (img.src) {
+        const cacheKey = `${primaryCodename}:${branch}`;
+        imageCache[cacheKey] = img.src;
+        imageCache[primaryCodename] = img.src;
+    }
+}
+
+function handleImageError(img, primaryCodename, branch) {
+    if (img.src.includes('/17/')) {
+        img.src = `https://raw.githubusercontent.com/ProjectInfinity-X/official_devices/16/deviceimages/${primaryCodename}.webp`;
+    } else if (img.src.includes('/16/')) {
+        img.src = `https://raw.githubusercontent.com/ProjectInfinity-X/official_devices/master/deviceimages/${primaryCodename}.webp`;
+    } else {
+        img.onerror = null;
+    }
+}
+
 function getDeviceImageUrl(primaryCodename, branch = '17') {
+    const cacheKey = `${primaryCodename}:${branch}`;
+    if (imageCache[cacheKey]) return imageCache[cacheKey];
     if (imageCache[primaryCodename]) return imageCache[primaryCodename];
     const branchToUse = branch === 'master' ? 'master' : (branch === '16' ? '16' : '17');
     return `https://raw.githubusercontent.com/ProjectInfinity-X/official_devices/${branchToUse}/deviceimages/${primaryCodename}.webp`;
@@ -167,7 +187,7 @@ function displayDevices(devices) {
         deviceCard.dataset.codename = device.codename;
         deviceCard.innerHTML = `
             <div class="device-image">
-                <img loading="lazy" src="${device.imageUrl}" alt="${device.devicemodel}" onerror="if(this.src.includes('/17/')){this.src='https://raw.githubusercontent.com/ProjectInfinity-X/official_devices/16/deviceimages/${device.primaryCodename}.webp';}else if(this.src.includes('/16/')){this.src='https://raw.githubusercontent.com/ProjectInfinity-X/official_devices/master/deviceimages/${device.primaryCodename}.webp';}else{this.onerror=null;}">
+                <img loading="lazy" src="${device.imageUrl}" alt="${device.devicemodel}" onload="handleImageLoad(this, '${device.primaryCodename}', '${device.branch}')" onerror="handleImageError(this, '${device.primaryCodename}', '${device.branch}')">
             </div>
             <div class="device-info">
                 <div class="device-model">${device.devicemodel}</div>
@@ -308,16 +328,13 @@ async function loadDeviceDetails(codename) {
         const changelogDir = baseUrl + 'changelog/';
         const flashguideDir = baseUrl + 'flashguide/';
 
-        deviceDetailsImage.src = getDeviceImageUrl(primaryCodename, useVersion);
-        deviceDetailsImage.onerror = function() {
-            if (this.src.includes('/17/')) {
-                this.src = `https://raw.githubusercontent.com/ProjectInfinity-X/official_devices/16/deviceimages/${primaryCodename}.webp`;
-            } else if (this.src.includes('/16/')) {
-                this.src = `https://raw.githubusercontent.com/ProjectInfinity-X/official_devices/master/deviceimages/${primaryCodename}.webp`;
-            } else {
-                this.onerror = null;
-            }
+        deviceDetailsImage.onload = function() {
+            handleImageLoad(this, primaryCodename, useVersion);
         };
+        deviceDetailsImage.onerror = function() {
+            handleImageError(this, primaryCodename, useVersion);
+        };
+        deviceDetailsImage.src = getDeviceImageUrl(primaryCodename, useVersion);
 
         const deviceInfo = await fetchContent(`${devicesDir}${codename}.json`, 'json');
         if (!deviceInfo) throw new Error("Device information not found");
