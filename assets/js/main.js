@@ -136,18 +136,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Build screenshot slides early and hint decoding priorities
     const swiperWrapper = document.querySelector('.swiper-wrapper');
-    const screenshotCount = 12;
-    for (let i = 1; i <= screenshotCount; i++) {
-        const slide = document.createElement('div');
-        slide.className = 'swiper-slide';
-        const eager = i <= 3 ? 'eager' : 'lazy';
-        const fetchPriority = i <= 3 ? 'high' : 'auto';
-        slide.innerHTML = `
-            <div class="swiper-slide-content">
-                <img src="assets/images/ss-${i}.webp" alt="Screenshot ${i}" loading="${eager}" decoding="async" fetchpriority="${fetchPriority}">
-            </div>
-        `;
-        swiperWrapper.appendChild(slide);
+    if (swiperWrapper) {
+        const screenshotCount = 12;
+        for (let i = 1; i <= screenshotCount; i++) {
+            const slide = document.createElement('div');
+            slide.className = 'swiper-slide';
+            const eager = i <= 3 ? 'eager' : 'lazy';
+            const fetchPriority = i <= 3 ? 'high' : 'auto';
+            slide.innerHTML = `
+                <div class="swiper-slide-content">
+                    <img src="assets/images/ss-${i}.webp" alt="Screenshot ${i}" loading="${eager}" decoding="async" fetchpriority="${fetchPriority}">
+                </div>
+            `;
+            swiperWrapper.appendChild(slide);
+        }
     }
 
     // Lazy-load Swiper library only when slider is about to enter the viewport
