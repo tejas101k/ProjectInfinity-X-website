@@ -627,41 +627,74 @@
 
         .tab-content {
             display: none;
-            padding: 10px;
+            padding: 14px;
             background: rgba(10, 10, 20, 0.5);
             border-radius: 8px;
-            max-height: 200px;
+            max-height: 280px;
             overflow-y: auto;
+            overflow-x: hidden;
             line-height: 1.6;
             font-size: 0.9rem;
             color: #ddd;
-            /* Firefox scrollbar styling */
-            scrollbar-width: thin;
-            scrollbar-color: var(--vibrant-blue) rgba(10, 10, 20, 0.3);
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        /* Custom scrollbar styling for tab content */
+        /* Hide scrollbar for Chrome, Safari, Opera */
         .tab-content::-webkit-scrollbar {
-            width: 8px;
+            display: none;
         }
 
-        .tab-content::-webkit-scrollbar-track {
-            background: rgba(10, 10, 20, 0.3);
-            border-radius: 4px;
-        }
-
-        .tab-content::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, var(--vibrant-blue), var(--vibrant-cyan));
-            border-radius: 4px;
-            transition: var(--transition);
-        }
-
-        .tab-content::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, var(--primary-dark), var(--secondary));
+        /* text wrapping inside tab content pre blocks */
+        .tab-content pre {
+            font-family: 'Space Grotesk', 'Roboto Mono', 'Fira Code', monospace;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: #ddd;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-word;
+            hyphens: auto;
+            margin: 0;
+            max-width: 100%;
         }
 
         .tab-content.active {
             display: block;
+        }
+
+        /* Notice to main source changelog */
+        .source-changelog-notice {
+            margin-top: 14px;
+            padding: 10px 16px;
+            background: rgba(66, 133, 244, 0.08);
+            border: 1px solid rgba(66, 133, 244, 0.2);
+            border-radius: 8px;
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.85);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.5;
+        }
+        .guides-container:has(.tab[data-tab="flashguide"].active) .source-changelog-notice,
+        .guides-container:has(#deviceFlashguideContent.active) .source-changelog-notice,
+        .guides-container:has(#flashguideContent.active) .source-changelog-notice {
+            display: none !important;
+        }
+
+        .source-changelog-notice i {
+            color: var(--vibrant-cyan);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .source-changelog-notice a {
+            color: var(--vibrant-cyan);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            font-weight: 500;
         }
 
         /* Loading spinner */

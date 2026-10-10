@@ -536,7 +536,13 @@ function setupTabs() {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             tab.classList.add('active');
-            document.getElementById(`device${tabName.charAt(0).toUpperCase() + tabName.slice(1)}Content`).classList.add('active');
+            const targetContent = document.getElementById(`device${tabName.charAt(0).toUpperCase() + tabName.slice(1)}Content`);
+            if (targetContent) targetContent.classList.add('active');
+            
+            const notice = tab.closest('.guides-container')?.querySelector('.source-changelog-notice') || document.querySelector('.source-changelog-notice');
+            if (notice) {
+                notice.style.display = (tabName === 'changelog') ? 'flex' : 'none';
+            }
         });
     });
 }
