@@ -1,3 +1,8 @@
+*, *::before, *::after {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
 /* Common header style */
 @keyframes projectTitleShift {
   0% { background-position: 0% 50%; }

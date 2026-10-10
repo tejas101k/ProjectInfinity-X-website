@@ -212,6 +212,8 @@
             transition: all 0.3s ease;
             font-family: 'Google Sans', sans-serif;
             text-align: center;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .android-version-btn:hover {
@@ -239,6 +241,7 @@
             cursor: pointer;
             user-select: none;
             outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .version-dropdown-trigger .dropdown-arrow {
@@ -292,6 +295,7 @@
             text-align: left;
             white-space: nowrap;
             outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .version-dropdown-item:hover,
