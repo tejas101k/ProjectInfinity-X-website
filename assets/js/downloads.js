@@ -416,20 +416,20 @@ async function loadDeviceDetails(codename) {
             : '<p>No flash guide available for this device.</p>';
     } catch (error) {
         deviceDetailsTitle.textContent = 'Error Loading Device';
-        deviceDetails.innerHTML = `
+        deviceDetailsCodename.textContent = '-';
+        deviceDetailsModel.textContent = '-';
+        deviceDetailsMaintainer.textContent = '-';
+        deviceDetailsLinks.innerHTML = '';
+        androidVersionButtons.innerHTML = '';
+        deviceChangelogContent.innerHTML = '<p>N/A</p>';
+        deviceFlashguideContent.innerHTML = '<p>N/A</p>';
+        deviceDownloadsContainer.innerHTML = `
             <div style="padding: 40px; text-align: center;">
-                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--danger); margin-bottom: 20px;"></i>
-                <p>Failed to load device details. Please try again.</p>
-                <p>${error.message}</p>
-                <a href="#" class="back-to-list" id="backToListError" style="margin-top: 20px;">
-                    <i class="fas fa-arrow-left"></i> Back to Devices
-                </a>
+                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--danger, #dc3545); margin-bottom: 20px;"></i>
+                <p><strong>Failed to load device details.</strong></p>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 8px;">${error.message}</p>
             </div>
         `;
-        document.getElementById('backToListError').addEventListener('click', (e) => {
-            e.preventDefault();
-            showDeviceList();
-        });
     }
 }
 function createDropdownArrowSvg() {
