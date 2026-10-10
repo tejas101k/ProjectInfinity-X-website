@@ -54,6 +54,11 @@ function getCodenameFromPath() {
     return match[1];
 }
 async function fetchContent(url, type = 'json') { if (deviceDataCache[url]) return deviceDataCache[url]; try { const response = await fetch(url); if (!response.ok) throw new Error("HTTP error! Status: "+response.status); let data; if (type === 'json') data = await response.json(); else data = await response.text(); deviceDataCache[url] = data; return data; } catch(e){return null;} }
+async function fetchTextWithFallback(dir, primaryCodename) {
+    const txtContent = await fetchContent(`${dir}${primaryCodename}.txt`, 'text');
+    if (txtContent) return txtContent;
+    return await fetchContent(`${dir}${primaryCodename}.md`, 'text');
+}
 function getDeviceImageUrl(primaryCodename, branch = '17') {
     if (imageCache[primaryCodename]) return imageCache[primaryCodename];
     const branchToUse = branch === 'master' ? 'master' : (branch === '16' ? '16' : '17');
@@ -400,8 +405,8 @@ async function loadDeviceDetails(codename) {
             `;
         }
         const [changelog, flashguide] = await Promise.allSettled([
-            fetchContent(`${changelogDir}${primaryCodename}.txt`, 'text').catch(() => fetchContent(`${changelogDir}${primaryCodename}.md`, 'text')),
-            fetchContent(`${flashguideDir}${primaryCodename}.txt`, 'text').catch(() => fetchContent(`${flashguideDir}${primaryCodename}.md`, 'text'))
+            fetchTextWithFallback(changelogDir, primaryCodename),
+            fetchTextWithFallback(flashguideDir, primaryCodename)
         ]);
         deviceChangelogContent.innerHTML = changelog.status === 'fulfilled' && changelog.value 
             ? `<pre>${changelog.value}</pre>` 
