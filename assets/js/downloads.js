@@ -87,7 +87,20 @@ function getDeviceImageUrl(primaryCodename, branch = '17') {
 function getBrandFromModel(modelName) { const lowerModel = modelName.toLowerCase(); for (const [brand, keywords] of Object.entries(BRAND_CATEGORIES)) { for (const keyword of keywords) { if (lowerModel.includes(keyword)) return brand; } } return null; }
 function createBrandButtons(brands) { const allBrandsBtn = document.querySelector('.brand-btn[data-brand="all"]'); brandCategories.innerHTML = ''; if(allBrandsBtn)brandCategories.appendChild(allBrandsBtn); brands.forEach(brand => { if (brand === 'All') return; const button = document.createElement('button'); button.className = 'brand-btn'; button.dataset.brand = brand; button.textContent = brand; brandCategories.appendChild(button); }); }
 
+const branchPresenceCache = {};
+
 async function getDeviceBranchPresence(codename) {
+    if (branchPresenceCache[codename]) {
+        return branchPresenceCache[codename];
+    }
+    if (window.allDevices) {
+        const found = window.allDevices.find(d => d.codename === codename || d.primaryCodename === getPrimaryCodename(codename));
+        if (found) {
+            const presence = { has15: !!found.has15, has16: !!found.has16, has17: !!found.has17 };
+            branchPresenceCache[codename] = presence;
+            return presence;
+        }
+    }
     const url15 = `${GITHUB_BASE_URL_MASTER}devices/${codename}.json`;
     const url16 = `${GITHUB_BASE_URL_16}devices/${codename}.json`;
     const url17 = `${GITHUB_BASE_URL_17}devices/${codename}.json`;
@@ -96,7 +109,9 @@ async function getDeviceBranchPresence(codename) {
         fetch(url16, { method: "HEAD" }).then(r => r.ok).catch(() => false),
         fetch(url17, { method: "HEAD" }).then(r => r.ok).catch(() => false),
     ]);
-    return { has15: r15, has16: r16, has17: r17 };
+    const presence = { has15: r15, has16: r16, has17: r17 };
+    branchPresenceCache[codename] = presence;
+    return presence;
 }
 
 async function loadDevices() {
@@ -154,6 +169,9 @@ async function loadDevices() {
         });
 
         const allDevices = (await Promise.all(fetchPromises)).filter(d => d !== null);
+        allDevices.forEach(d => {
+            branchPresenceCache[d.codename] = { has15: d.has15, has16: d.has16, has17: d.has17 };
+        });
 
         const uniqueBrands = [...new Set(allDevices.map(d => d.brand).filter(Boolean))].sort();
         createBrandButtons(uniqueBrands);
@@ -580,6 +598,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     });
     const codename = getCodenameFromPath();
-    if (codename) loadDeviceDetails(codename);
-    loadDevices();
+    if (codename) {
+        loadDeviceDetails(codename);
+    } else {
+        loadDevices();
+    }
 });
