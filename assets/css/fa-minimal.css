@@ -41,6 +41,11 @@
 .fa-cogs:before{content:"\f085"}
 .fa-wrench:before{content:"\f0ad"}
 .fa-question-circle:before{content:"\f059"}
+.fa-bug:before{content:"\f188"}
+.fa-check-circle:before{content:"\f058"}
+.fa-times-circle:before{content:"\f057"}
+.fa-check:before{content:"\f00c"}
+.fa-times:before{content:"\f00d"}
 
 /* Brand icons */
 .fa-github:before{content:"\f09b"}

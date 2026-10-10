@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Report bugs and issues related to the Project Infinity X." />
+    <title>Infinity X - Bug Report</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon/favicon-512x512.png">
+    <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+
+    <link rel="preload" href="../assets/css/layout.css" as="style">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="preload" as="style" href="../assets/css/fa-minimal.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="../assets/css/fa-minimal.css"></noscript>
+    <link rel="stylesheet" href="../assets/vendor/fonts/fonts.css">
+    <link rel="stylesheet" href="../assets/css/bug-report.css">
+</head>
+<body>
+    <!-- Android Status Bar -->
+    <div class="android-bar"></div>
+
+    <!-- Shared Header Placeholder -->
+    <div id="header-placeholder"></div>
+
+    <!-- Hero Card Section -->
+    <div class="container">
+        <div class="bug-report-hero-card">
+            <h1>ROM Issue Tracker</h1>
+            <p>Help us improve Project Infinity X. Report reproducible bugs originating from the original, unmodified ROM source codebase.</p>
+            <div class="hero-actions">
+                <a href="https://github.com/ProjectInfinity-X/issue_tracker/issues/new?template=rom_source_bug.yml" target="_blank" rel="noopener" class="btn btn-primary">
+                    <i class="fab fa-github"></i> Submit Bug Report
+                </a>
+                <a href="https://github.com/ProjectInfinity-X/issue_tracker/issues" target="_blank" rel="noopener" class="btn btn-secondary">
+                    <i class="fas fa-search"></i> View Open Issues
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="container">
+        <!-- Important Warning Notice -->
+        <div class="notice-card">
+            <div class="notice-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="notice-content">
+                <h2>Important — Read Before Submitting</h2>
+                <p>This issue tracker is <strong>ONLY</strong> for bugs related to the original, unmodified Project Infinity X ROM source. Device-specific issues, hardware bring-up bugs, kernel panics, or modified system environments will be closed immediately without exception.</p>
+            </div>
+        </div>
+
+        <!-- Scope Grid: In-Scope vs Out-of-Scope -->
+        <div class="section-grid">
+            <!-- Allowed Issues Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-icon icon-success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="card-title">Accepted ROM Source Issues</div>
+                </div>
+                <ul class="scope-list allowed">
+                    <li><i class="fas fa-check"></i> <span>SystemUI or interface bugs originating from ROM source</span></li>
+                    <li><i class="fas fa-check"></i> <span>Core ROM framework & system functionality issues</span></li>
+                    <li><i class="fas fa-check"></i> <span>Launcher bugs caused by ROM source changes</span></li>
+                    <li><i class="fas fa-check"></i> <span>Bugs in built-in Infinity X system applications</span></li>
+                    <li><i class="fas fa-check"></i> <span>Reproducible issues affecting the original source code</span></li>
+                </ul>
+            </div>
+
+            <!-- Prohibited Issues Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-icon icon-danger">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="card-title">Do NOT Report Here</div>
+                </div>
+                <ul class="scope-list disallowed">
+                    <li><i class="fas fa-times"></i> <span>Device-specific tree, kernel, or vendor blob issues</span></li>
+                    <li><i class="fas fa-times"></i> <span>Issues while Root (Magisk/KernelSU) or modules are active</span></li>
+                    <li><i class="fas fa-times"></i> <span>Third-party app compatibility (banking, payment apps, etc.)</span></li>
+                    <li><i class="fas fa-times"></i> <span>Device update requests or adding new supported devices</span></li>
+                    <li><i class="fas fa-times"></i> <span>General ROM queries, feature requests, or user support</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Requirements Grid: Stock State & Reproduction -->
+        <div class="section-grid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-icon icon-primary">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="card-title">Stock State Requirement</div>
+                </div>
+                <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.6;">
+                    All bug reports must be verified on an <strong>unmodified stock state</strong>. Ensure you have removed root modifications, Xposed/LSPosed modules, and custom kernel tweaks before testing. Reports found to be caused by user-applied modifications will be closed.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-icon icon-primary">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="card-title">Reproduction Policy</div>
+                </div>
+                <p style="color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.6;">
+                    The source maintainer will attempt to reproduce the issue using your provided steps. Steps must be <strong>clear, accurate, complete, and repeatable</strong>. Reports without proper reproduction steps or required logs will be closed.
+                </p>
+            </div>
+        </div>
+
+        <!-- Information Required Guide -->
+        <div class="fields-section">
+            <div class="fields-title">
+                <i class="fas fa-file-alt"></i> Information Required in Bug Reports
+            </div>
+            <div class="fields-subtitle">
+                Ensure your GitHub report contains the following detailed parameters for efficient diagnosis.
+            </div>
+
+            <div class="fields-grid">
+                <!-- Device Model -->
+                <div class="field-box">
+                    <div class="field-badge-row">
+                        <span class="field-name">Device Model</span>
+                        <span class="field-req required">Required</span>
+                    </div>
+                    <div class="field-desc">Enter your device model name and codename for reproduction context.</div>
+                    <div class="field-example">Example: Xiaomi Redmi Note 10 Pro (sweet)</div>
+                </div>
+
+                <!-- ROM Version -->
+                <div class="field-box">
+                    <div class="field-badge-row">
+                        <span class="field-name">ROM Version</span>
+                        <span class="field-req required">Required</span>
+                    </div>
+                    <div class="field-desc">Select the major Infinity X Android version being used.</div>
+                    <div class="field-example">Example: Infinity X 4.x (Android 17) / 3.x (Android 16)</div>
+                </div>
+
+                <!-- ROM Version Details -->
+                <div class="field-box">
+                    <div class="field-badge-row">
+                        <span class="field-name">ROM Version Details</span>
+                        <span class="field-req required">Required</span>
+                    </div>
+                    <div class="field-desc">Complete build release version and exact build date.</div>
+                    <div class="field-example">Example: Infinity X v3.12 - 02/08/2026</div>
+                </div>
+
+                <!-- Bug Description -->
+                <div class="field-box">
+                    <div class="field-badge-row">
+                        <span class="field-name">Bug Description</span>
+                        <span class="field-req required">Required</span>
+                    </div>
+                    <div class="field-desc">Explain what happened, expected behavior, and impact on ROM.</div>
+                    <div class="field-example">Describe clearly what fails and how it affects usage.</div>
+                </div>
+
+                <!-- Steps to Reproduce -->
+                <div class="field-box">
+                    <div class="field-badge-row">
+                        <span class="field-name">Steps to Reproduce</span>
+                        <span class="field-req required">Required</span>
+                    </div>
+                    <div class="field-desc">Sequential instructions to reproduce the exact issue.</div>
+                    <div class="field-example">1. Open Settings -> 2. Go to Display -> 3. Toggle option...</div>
+                </div>
+
+                <!-- Logs -->
+                <div class="field-box">
+                    <div class="field-badge-row">
+                        <span class="field-name">Logs</span>
+                        <span class="field-req optional">Recommended</span>
+                    </div>
+                    <div class="field-desc">Attach logcat, dmesg, or framework crash logs. ⚠️ Redact private info!</div>
+                    <div class="field-example">Upload logcat text file or paste log link</div>
+                </div>
+
+                <!-- Screenshots / Videos -->
+                <div class="field-box">
+                    <div class="field-badge-row">
+                        <span class="field-name">Screenshots & Videos</span>
+                        <span class="field-req optional">Optional</span>
+                    </div>
+                    <div class="field-desc">Attach visual evidence showing the bug in action.</div>
+                    <div class="field-example">Drag & drop images/screen recordings</div>
+                </div>
+
+                <!-- Possible Fix -->
+                <div class="field-box">
+                    <div class="field-badge-row">
+                        <span class="field-name">Possible Fix / Suggestion</span>
+                        <span class="field-req optional">Optional</span>
+                    </div>
+                    <div class="field-desc">Technical pointers, source file references, or proposed commits.</div>
+                    <div class="field-example">Source location, available commits, or code hint</div>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="field-box">
+                    <div class="field-badge-row">
+                        <span class="field-name">Additional Information</span>
+                        <span class="field-req optional">Optional</span>
+                    </div>
+                    <div class="field-desc">Related issue links, patches, or extra environment details.</div>
+                    <div class="field-example">Related PRs or previous build comparisons</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community & Device Support Banner -->
+        <div class="community-banner">
+            <h2>Need Device-Specific Help or Support?</h2>
+            <p>If your issue is device-specific, related to custom kernels, device trees, or general support queries, please use our community support channels instead of the bug tracker.</p>
+            <div class="community-links">
+                <a href="https://t.me/infinityxgroup" target="_blank" rel="noopener" class="social-btn telegram">
+                    <i class="fab fa-telegram"></i> Telegram Community
+                </a>
+                <a href="https://xdaforums.com/tags/infinityx/" target="_blank" rel="noopener" class="social-btn xda">
+                    <i class="fab fa-forumbee"></i> XDA Forums
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shared Footer Placeholder -->
+    <footer id="footer-placeholder"></footer>
+
+    <!-- Templating Script -->
+    <script src="/assets/js/templating.js" defer></script>
+</body>
+</html>
