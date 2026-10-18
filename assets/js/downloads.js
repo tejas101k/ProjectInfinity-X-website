@@ -571,37 +571,37 @@ document.addEventListener('DOMContentLoaded', () => {
             showDeviceList();
         }
     });
+    function applyFilters() {
+        if (!window.allDevices) return;
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        const activeBrandBtn = document.querySelector('.brand-btn.active');
+        const brand = activeBrandBtn ? activeBrandBtn.dataset.brand : 'all';
+
+        let filteredDevices = window.allDevices;
+        if (brand && brand !== 'all') {
+            filteredDevices = filteredDevices.filter(device => device.brand === brand);
+        }
+        if (searchTerm) {
+            filteredDevices = filteredDevices.filter(device =>
+                device.devicemodel.toLowerCase().includes(searchTerm) ||
+                device.codename.toLowerCase().includes(searchTerm)
+            );
+        }
+        displayDevices(filteredDevices);
+    }
+
     brandCategories.addEventListener('click', (e) => {
         const brandBtn = e.target.closest('.brand-btn');
         if (!brandBtn) return;
         document.querySelectorAll('.brand-btn').forEach(btn => btn.classList.remove('active'));
         brandBtn.classList.add('active');
-        const brand = brandBtn.dataset.brand;
-        if (!window.allDevices) return;
-        let filteredDevices = [];
-        if (brand === 'all') filteredDevices = window.allDevices;
-        else filteredDevices = window.allDevices.filter(device => device.brand === brand);
-        displayDevices(filteredDevices);
+        applyFilters();
     });
+
     let searchDebounce;
     searchInput.addEventListener('input', () => {
         clearTimeout(searchDebounce);
-        searchDebounce = setTimeout(() => {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-            if (!window.allDevices) return;
-            let filteredDevices;
-            if (searchTerm === '') filteredDevices = window.allDevices;
-            else filteredDevices = window.allDevices.filter(device =>
-                device.devicemodel.toLowerCase().includes(searchTerm) ||
-                device.codename.toLowerCase().includes(searchTerm)
-            );
-            const activeBrandBtn = document.querySelector('.brand-btn.active');
-            if (activeBrandBtn && activeBrandBtn.dataset.brand !== 'all') {
-                const brand = activeBrandBtn.dataset.brand;
-                filteredDevices = filteredDevices.filter(device => device.brand === brand);
-            }
-            displayDevices(filteredDevices);
-        }, 300);
+        searchDebounce = setTimeout(applyFilters, 300);
     });
     const codename = getCodenameFromPath();
     if (codename) {
